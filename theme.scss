@@ -1,0 +1,5 @@
+@import '@angular/material/theming';
+
+$typography-configuration: mat-typography-config();
+
+@include angular-material-typography($typography-configuration);

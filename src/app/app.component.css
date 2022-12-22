@@ -1,0 +1,53 @@
+
+#mainContainer {
+  display: grid;
+  grid-template-areas:
+    "pageHeader pageHeader"
+    "filters searchBar"
+    "filters resultList"
+    "topics resultList"
+    "pageFooter pageFooter";
+  grid-template-rows: 70px 70px 1fr 1fr 70px;
+  grid-template-columns: 20% 1fr;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  height: 100vh;
+  margin: 0;
+  }
+#pageHeader, #pageFooter, #resultList, #filters, #topics, #searchBar {
+  padding: 1.2em;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 4px 4px 0 rgba(105, 105, 105, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19);
+  }
+#pageHeader {
+  grid-area: pageHeader;
+  }
+#pageFooter {
+  grid-area: pageFooter;
+  }
+#resultList {
+  grid-area: resultList;
+  }
+#filters {
+  grid-area: filters;
+  }
+#topics {
+  grid-area: topics;
+  }
+#searchBar {
+  grid-area: searchBar;
+  }
+/* Stack the layout on small devices/viewports. */
+@media all and (max-width: 575px) {
+  #mainContainer {
+    grid-template-areas:
+      "pageHeader"
+      "searchBar"
+      "filters"
+      "topics"
+      "resultList"
+      "pageFooter";
+    grid-template-rows: 80px 1fr 70px 1fr 70px;
+    grid-template-columns: 1fr;
+ }
+}
