@@ -8,10 +8,14 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { TopicsComponent } from './topics/topics.component';
+import { FiltersComponent } from './filters/filters.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TopicsComponent,
+    FiltersComponent
   ],
   imports: [
     BrowserAnimationsModule,
