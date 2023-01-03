@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TopicsComponent } from './topics/topics.component';
 import { FiltersComponent } from './filters/filters.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FiltersComponent } from './filters/filters.component';
     MatNativeDateModule,
     MaterialExampleModule,
     ReactiveFormsModule,
+    RouterModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]
