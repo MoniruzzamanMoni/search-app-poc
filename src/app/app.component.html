@@ -14,8 +14,12 @@
   </mat-toolbar>
 
   <section id="sidebar">
-    <app-filters></app-filters>
-    <app-topics></app-topics>
+    <mat-button-toggle-group #group="matButtonToggleGroup">
+      <mat-button-toggle checked value="filters">Filters</mat-button-toggle>
+      <mat-button-toggle value="topics">Topics</mat-button-toggle>
+    </mat-button-toggle-group>
+    <app-filters [hidden]="!(group.value=='filters')"></app-filters>
+    <app-topics [hidden]="!(group.value=='topics')"></app-topics>
   </section>
 
   <section id="searchBar">
