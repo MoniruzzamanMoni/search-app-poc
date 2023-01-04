@@ -25,7 +25,7 @@ export class FiltersComponent  implements OnInit {
 
   relatedCountries: Country[] = [];
 
-  selectedCountries: number[] = [];
+  selectedCountries: Country[] = [];
   selectedRelatedCountries: number[] = [];
 
   countryFormControl = new FormControl('');
@@ -59,10 +59,12 @@ export class FiltersComponent  implements OnInit {
     return country && country.name ? country.name : '';
   }
 
-  private _filter(name: string): Country[] {
-    const filterValue = name.toLowerCase();
-
-    return this.countries.filter(option => option.name.toLowerCase().includes(filterValue));
+  private _filter(country: Country): Country[] {
+    const filterValue = country?.name?.toLowerCase();
+    const selectedIds = this.selectedCountries.map(c => c.id);
+    const notSelected = (option: Country) => !selectedIds.includes(option.id);
+    return !filterValue ? this.countries.filter(option => notSelected(option)) :
+      this.countries.filter(option => option.name.toLowerCase().includes(filterValue) && notSelected(option));
   }
 
   loadCountries() {
@@ -74,18 +76,18 @@ export class FiltersComponent  implements OnInit {
       this.filteredCountries = this.myControl.valueChanges.pipe(
         startWith(''),
         map(value => {
-          const name = typeof value === 'string' ? value : value?.name;
-          return name ? this._filter(name as string) : this.countries.slice();
+          return this._filter(value as Country);
         }),
       );
     });
   }
 
   onCountryChange(c: MatAutocompleteSelectedEvent) {
+    this.selectedCountries.push(c.option.value);
     console.log('DEBUG: selected countries', c, this.selectedCountries);
-    this.chips = [...this.countries.filter(c => this.selectedCountries.includes(c.id))];
-    localStorage.setItem('search_url', this.makeUrl(this.selectedCountries));
-    this.router.navigateByUrl(`?${this.makeUrl(this.selectedCountries)}`);
+    this.chips = [...this.countries.filter(c => this.selectedCountries.map(c => c.id).includes(c.id))];
+    localStorage.setItem('search_url', this.makeUrl(this.selectedCountries.map(c => c.id)));
+    this.router.navigateByUrl(`?${this.makeUrl(this.selectedCountries.map(c => c.id))}`);
   }
 
   makeUrl(dims: number[] = []): string {
