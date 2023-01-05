@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AppConfigService {
-  private appConfig;
+  private appConfig: any;
 
   constructor(private httpClient: HttpClient) { }
 

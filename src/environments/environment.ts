@@ -6,7 +6,7 @@ export const environment = {
   config: 'assets/etc/config.json',
 //  css: 'https://dev-research.ibfd.org/css/ibfd-trp3.css'
 };
-ib_debug(true);
+// ib_debug(true);
 
 /*
  * In development mode, to ignore zone related error stack frames such as
