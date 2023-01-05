@@ -15,8 +15,8 @@ export class TodoItemNode {
 /** Flat to-do item node with expandable and level information */
 export class TodoItemFlatNode {
   item?: string;
-  level: number = 0;
-  expandable: boolean = true;
+  level = 0;
+  expandable = true;
 }
 
 /**

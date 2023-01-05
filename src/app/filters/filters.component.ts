@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, of, startWith } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import { EndecapodService } from '../services/endecapod.service';
 
 export interface User {
@@ -17,22 +16,9 @@ export interface User {
 })
 export class FiltersComponent  implements OnInit {
   myControl = new FormControl<string | Country>('');
-  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
-
-
   countries: Country[] = [];
   filteredCountries: Observable<Country[]> = new Observable();
-
-  relatedCountries: Country[] = [];
-
   selectedCountries: Country[] = [];
-  selectedRelatedCountries: number[] = [];
-
-  countryFormControl = new FormControl('');
-  relatedCountryFormControl = new FormControl('');
-
-  chips : Country[] = [];
-  searchResults: any[] = [];
 
   constructor(
     private endecaService: EndecapodService,
@@ -46,8 +32,7 @@ export class FiltersComponent  implements OnInit {
     this.route.queryParamMap.subscribe(p => {
       if (p.keys.length > 0) {
         this.loadCountries();
-        const url = localStorage.getItem('search_url');
-        this.loadMainResult(url || '');
+        // const url = localStorage.getItem('search_url');
       } else {
         localStorage.setItem('search_url', this.makeUrl());
         this.router.navigateByUrl(`?${this.makeUrl()}`);
@@ -85,7 +70,6 @@ export class FiltersComponent  implements OnInit {
   onCountryChange(c: MatAutocompleteSelectedEvent) {
     this.selectedCountries.push(c.option.value);
     console.log('DEBUG: selected countries', c, this.selectedCountries);
-    this.chips = [...this.countries.filter(c => this.selectedCountries.map(c => c.id).includes(c.id))];
     localStorage.setItem('search_url', this.makeUrl(this.selectedCountries.map(c => c.id)));
     this.router.navigateByUrl(`?${this.makeUrl(this.selectedCountries.map(c => c.id))}`);
   }
@@ -98,30 +82,16 @@ export class FiltersComponent  implements OnInit {
     return url;
   }
 
-  loadMainResult(url: string) {
-    this.endecaService.queryUrl(url).subscribe(res => {
-      const r = res.records.map(
-        (r: Result) => r.records?.map((rr: Result) => {
-          return {
-            title: rr?.properties?.global_title[0]
-          }
-        })
-        ).flat();
 
-        const s = new Set(r);
-        this.searchResults = Array.from(s);
-        console.log('DEBUG: result', this.searchResults);
-      });
-    }
 
 }
 
-interface Result {
-  records?: Result[];
-  properties?: {
-    global_title: string[]
-  }
-}
+// interface Result {
+//   records?: Result[];
+//   properties?: {
+//     global_title: string[]
+//   }
+// }
 
 
 
