@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -11,12 +11,18 @@ import { AppComponent } from './app.component';
 import { TopicsComponent } from './topics/topics.component';
 import { FiltersComponent } from './filters/filters.component';
 import { RouterModule } from '@angular/router';
+import { FilterComponent } from './filter/filter.component';
+import { AppConfigService } from './services/app-config.service';
+const appConfigFactory = (appConfigService: AppConfigService) => {
+  return () => appConfigService.loadAppConfig();
+};
 
 @NgModule({
   declarations: [
     AppComponent,
     TopicsComponent,
-    FiltersComponent
+    FiltersComponent,
+    FilterComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -28,7 +34,9 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     RouterModule.forRoot([])
   ],
-  providers: [],
+  providers: [
+    {provide: APP_INITIALIZER, useFactory: appConfigFactory, multi: true, deps: [AppConfigService]}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
 import { Filter } from './filter';
 
 export class AppConfigData {
-  private readonly configMap: any;
+  private readonly configMap: any = {};
 
   constructor(data: any) {
     Object.keys(data).forEach((key) => (this.configMap[key] = data[key]));

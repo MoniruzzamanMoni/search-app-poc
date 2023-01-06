@@ -7,32 +7,9 @@
   </mat-expansion-panel-header>
 
   <form class="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Country/Jurisdiction</mat-label>
-      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onCountryChange($event)">
-        <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
-          {{country.name}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <!-- <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Assignee</mat-label>
-      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option.name}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Assignee</mat-label>
-      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option.name}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field> -->
+
+    <ng-container *ngFor="let f of filters">
+      <app-filter *ngIf="f.option?.values?.length" [option]="f.option"></app-filter>
+    </ng-container>
   </form>
 </mat-expansion-panel>
