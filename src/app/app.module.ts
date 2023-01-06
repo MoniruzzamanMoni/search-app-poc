@@ -10,12 +10,14 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TopicsComponent } from './topics/topics.component';
 import { FiltersComponent } from './filters/filters.component';
+import { ResultListComponent } from './result-list/result-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopicsComponent,
-    FiltersComponent
+    FiltersComponent,
+    ResultListComponent
   ],
   imports: [
     BrowserAnimationsModule,
