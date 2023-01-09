@@ -1,4 +1,5 @@
 import { Filter } from './filter';
+import { TopicFeatureConfig } from './topic-feature-config';
 
 export class AppConfigData {
   private readonly configMap: any = {};
@@ -22,5 +23,9 @@ export class AppConfigData {
 
   private getDefaultCollectionFilters(): Filter[] {
     return this.getCollections().find((col: any) => col['N'] === 0)['filters'];
+  }
+
+  getTopicFeatureConfig(): TopicFeatureConfig {
+    return new TopicFeatureConfig(this.configMap['topic']);
   }
 }

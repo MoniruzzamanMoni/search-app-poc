@@ -1741,5 +1741,41 @@
         "name": "journals"
       }
     }
-  ]
+  ],
+   "topic": {
+    "topic_search": {
+      "use_old_taxonomy": {
+        "id": "old",
+        "enabled": false,
+        "query": "N=3+10&Ne=6185+6201+6332+6593+6680&select=relative_path",
+        "dimensions": [6185, 6201, 6332, 6593, 6680],
+        "name": "Topic Search - old Approach"
+      },
+      "use_new_taxonomy": {
+        "enabled": true,
+        "id": "new",
+        "query": "N=3+10&Ne=7838+7839+7840+7841&select=relative_path",
+        "dimensions": [7838, 7839, 7840, 7841],
+        "name": "Topic Search - new Approach"
+      }
+    },
+    "topic_navigation": {
+      "use_old_taxonomy": {
+        "id": "old",
+        "enabled": false,
+        "query": "N=3+10&Ne=6185+6201+6332+6593+6680&select=relative_path",
+        "dimensions": [6185, 6201, 6332, 6593, 6680],
+        "prefix": "",
+        "name": "Topic Navigation - old Approach"
+      },
+      "use_new_taxonomy": {
+        "id": "new",
+        "enabled": true,
+        "query": "N=3+10&Ne=7838+7839+7840+7841&select=relative_path",
+        "dimensions": [7838, 7839, 7840, 7841],
+        "prefix": "taxtopic",
+        "name": "Topic Navigation - new Approach"
+      }
+    }
+  }
 }

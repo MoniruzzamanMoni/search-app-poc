@@ -2,7 +2,12 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component, Injectable} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import { AppConfigData } from '../models/app-config-data';
+import { TopicConfig } from '../models/topic-config';
+import { TopicServiceConfig } from '../models/topic-service-config';
+import { AppConfigService } from '../services/app-config.service';
+import { EndecapodService } from '../services/endecapod.service';
 
 /**
  * Node for to-do item
@@ -128,8 +133,38 @@ export class TopicsComponent {
 
   /** The selection for checklist */
   checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
+  topicServiceConfigs: TopicServiceConfig[] = [];
 
-  constructor(private _database: ChecklistDatabase) {
+  private appConfigData: AppConfigData;
+  private taxonomyResult: Observable<any> | undefined = undefined;
+  private topicConfig: TopicConfig | undefined;
+  topics: any[] | undefined;
+  constructor(
+    private _database: ChecklistDatabase,
+    private endeca: EndecapodService,
+    private appconfigService: AppConfigService
+    ) {
+
+
+    this.appConfigData = new AppConfigData(this.appconfigService.config);
+    this.appConfigData
+    .getTopicFeatureConfig()
+    .getTopicSearchConfig().getEnabledTaxonomies().map((topicConfig) => {
+      this.topicConfig = topicConfig;
+      console.log('taxonomy', topicConfig);
+      this.taxonomyResult =  this.endeca.queryUrl(topicConfig.query);
+    });
+
+    this.taxonomyResult?.subscribe(res => {
+     const topics: any[] = [];
+      this.topicConfig?.dimensions.forEach(id => {
+        const dim = res['dimensions'].find((dim: any) => dim['id'] === id);
+        topics.push(...(dim ? dim.values : []));
+      });
+      console.log('taxonomy result: ',topics);
+      this.topics = topics;
+    })
+
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,
