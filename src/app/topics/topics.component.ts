@@ -1,8 +1,11 @@
-import {SelectionModel} from '@angular/cdk/collections';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable} from '@angular/core';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {BehaviorSubject, Observable} from 'rxjs';
+import { SelectionModel } from '@angular/cdk/collections';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { Component, Injectable } from '@angular/core';
+import {
+  MatTreeFlatDataSource,
+  MatTreeFlattener,
+} from '@angular/material/tree';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AppConfigData } from '../models/app-config-data';
 import { TopicConfig } from '../models/topic-config';
 import { TopicServiceConfig } from '../models/topic-service-config';
@@ -22,6 +25,7 @@ export class TodoItemFlatNode {
   item?: string;
   level = 0;
   expandable = true;
+  children = []
 }
 
 /**
@@ -38,7 +42,11 @@ const TREE_DATA = {
       Orange: null,
     },
   },
-  Reminders: ['Cook dinner', 'Read the Material Design spec', 'Upgrade Application to Angular'],
+  Reminders: [
+    'Cook dinner',
+    'Read the Material Design spec',
+    'Upgrade Application to Angular',
+  ],
 };
 
 /**
@@ -71,7 +79,7 @@ export class ChecklistDatabase {
    * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
    * The return value is the list of `TodoItemNode`.
    */
-  buildFileTree(obj: {[key: string]: any}, level: number): TodoItemNode[] {
+  buildFileTree(obj: { [key: string]: any }, level: number): TodoItemNode[] {
     return Object.keys(obj).reduce<TodoItemNode[]>((accumulator, key) => {
       const value = obj[key];
       const node = new TodoItemNode();
@@ -92,7 +100,7 @@ export class ChecklistDatabase {
   /** Add an item to to-do list */
   insertItem(parent: TodoItemNode, name: string) {
     if (parent.children) {
-      parent.children.push({item: name} as TodoItemNode);
+      parent.children.push({ item: name } as TodoItemNode);
       this.dataChange.next(this.data);
     }
   }
@@ -132,52 +140,126 @@ export class TopicsComponent {
   dataSource: MatTreeFlatDataSource<TodoItemNode, TodoItemFlatNode>;
 
   /** The selection for checklist */
-  checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
+  checklistSelection = new SelectionModel<TodoItemFlatNode>(
+    true /* multiple */
+  );
   topicServiceConfigs: TopicServiceConfig[] = [];
 
   private appConfigData: AppConfigData;
   private taxonomyResult: Observable<any> | undefined = undefined;
   private topicConfig: TopicConfig | undefined;
   topics: any[] | undefined;
+  topicTree: any;
   constructor(
     private _database: ChecklistDatabase,
     private endeca: EndecapodService,
     private appconfigService: AppConfigService
-    ) {
-
-
+  ) {
     this.appConfigData = new AppConfigData(this.appconfigService.config);
     this.appConfigData
-    .getTopicFeatureConfig()
-    .getTopicSearchConfig().getEnabledTaxonomies().map((topicConfig) => {
-      this.topicConfig = topicConfig;
-      console.log('taxonomy', topicConfig);
-      this.taxonomyResult =  this.endeca.queryUrl(topicConfig.query);
-    });
-
-    this.taxonomyResult?.subscribe(res => {
-     const topics: any[] = [];
-      this.topicConfig?.dimensions.forEach(id => {
-        const dim = res['dimensions'].find((dim: any) => dim['id'] === id);
-        topics.push(...(dim ? dim.values : []));
+      .getTopicFeatureConfig()
+      .getTopicSearchConfig()
+      .getEnabledTaxonomies()
+      .map((topicConfig) => {
+        this.topicConfig = topicConfig;
+        console.log('taxonomy', topicConfig);
+        this.taxonomyResult = this.endeca.queryUrl(topicConfig.query);
       });
-      console.log('taxonomy result: ',topics);
-      this.topics = topics;
-    })
+
+    this.taxonomyResult
+      ?.pipe(
+        map((res) => {
+          const topics: any[] = [];
+          this.topicConfig?.dimensions.forEach((id) => {
+            const dim = res['dimensions'].find((dim: any) => dim['id'] === id);
+            topics.push(...(dim ? dim.values : []));
+            // Todo: Consider taking chips later
+          });
+          return topics.map((t) => {
+            const name = t.name;
+            return {
+              code: name.substring(0, name.indexOf(' ')),
+              label: name.substring(name.indexOf(' ') + 1),
+              id: t.id,
+            };
+          }).sort((t1, t2) => t1.code.localeCompare(t2.code, undefined, {numeric: true, sensitivity: 'base'}));
+        })
+      )
+      .subscribe((topics) => {
+        // console.log('taxonomy result: ', topics);
+        this.topics = topics;
+        this.topicTree = this.buildPrimeNgTree(this.topics, [], new Set());
+        console.log(this.topicTree);
+        // this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.topicTree);
+        // this.dataSource.data = this.topicTree.data;
+      });
 
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,
       this.isExpandable,
-      this.getChildren,
+      this.getChildren
     );
-    this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    this.treeControl = new FlatTreeControl<TodoItemFlatNode>(
+      this.getLevel,
+      this.isExpandable
+    );
+    this.dataSource = new MatTreeFlatDataSource(
+      this.treeControl,
+      this.treeFlattener
+    );
 
-    _database.dataChange.subscribe(data => {
+    _database.dataChange.subscribe((data) => {
       this.dataSource.data = data;
     });
   }
+
+   private buildPrimeNgTree(taxtopics: any[], chips: any[], expandedNodes: Set<number>) {
+    return taxtopics.reduce((acc, taxtopic) => {
+      const node: any = {
+        label: taxtopic['label'],
+        data: taxtopic['code'],
+        selectable: taxtopic['selectable'],
+        id: taxtopic['id'],
+        key: taxtopic['code']
+      };
+      if (chips.find(id => id === node.id)) {
+        acc.selected.push(node);
+      }
+      node['expanded'] = expandedNodes.has(node.id);
+      const parent = this.getTaxtopicParent(acc.data, this.getTaxtopicParentLabel(node.data));
+      if (parent) {
+        if (!parent['children']) {
+          parent['children'] = [];
+        }
+        node['parent'] = parent;
+        parent['children'].push(node);
+      } else {
+        acc.data.push(node);
+      }
+      return acc;
+    }, {data: [], selected: []});
+  }
+
+  private getTaxtopicParentLabel(tc: string) {
+    return tc.substring(0, tc.lastIndexOf('_'));
+  }
+
+  private getTaxtopicParent(acc: any[], parentLabel: string): any {
+    for (let i = 0; i < acc.length; i++) {
+      const taxtopic = acc[i];
+      if (taxtopic['data'] === parentLabel) {
+        return taxtopic;
+      }
+      if (taxtopic['children']) {
+        const taxtopicParent = this.getTaxtopicParent(taxtopic['children'], parentLabel);
+        if (taxtopicParent) {
+          return taxtopicParent;
+        }
+      }
+    }
+  }
+
 
   getLevel = (node: TodoItemFlatNode) => node.level;
 
@@ -187,7 +269,8 @@ export class TopicsComponent {
 
   hasChild = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.expandable;
 
-  hasNoContent = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.item === '';
+  hasNoContent = (_: number, _nodeData: TodoItemFlatNode) =>
+    _nodeData.item === '';
 
   /**
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
@@ -195,7 +278,9 @@ export class TopicsComponent {
   transformer = (node: TodoItemNode, level: number) => {
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode =
-      existingNode && existingNode.item === node.item ? existingNode : new TodoItemFlatNode();
+      existingNode && existingNode.item === node.item
+        ? existingNode
+        : new TodoItemFlatNode();
     flatNode.item = node.item;
     flatNode.level = level;
     flatNode.expandable = !!node.children?.length;
@@ -209,7 +294,7 @@ export class TopicsComponent {
     const descendants = this.treeControl.getDescendants(node);
     const descAllSelected =
       descendants.length > 0 &&
-      descendants.every(child => {
+      descendants.every((child) => {
         return this.checklistSelection.isSelected(child);
       });
     return descAllSelected;
@@ -218,7 +303,9 @@ export class TopicsComponent {
   /** Whether part of the descendants are selected */
   descendantsPartiallySelected(node: TodoItemFlatNode): boolean {
     const descendants = this.treeControl.getDescendants(node);
-    const result = descendants.some(child => this.checklistSelection.isSelected(child));
+    const result = descendants.some((child) =>
+      this.checklistSelection.isSelected(child)
+    );
     return result && !this.descendantsAllSelected(node);
   }
 
@@ -231,7 +318,7 @@ export class TopicsComponent {
       : this.checklistSelection.deselect(...descendants);
 
     // Force update for the parent
-    descendants.forEach(child => this.checklistSelection.isSelected(child));
+    descendants.forEach((child) => this.checklistSelection.isSelected(child));
     this.checkAllParentsSelection(node);
   }
 
@@ -256,7 +343,7 @@ export class TopicsComponent {
     const descendants = this.treeControl.getDescendants(node);
     const descAllSelected =
       descendants.length > 0 &&
-      descendants.every(child => {
+      descendants.every((child) => {
         return this.checklistSelection.isSelected(child);
       });
     if (nodeSelected && !descAllSelected) {
