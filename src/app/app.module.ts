@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { TopicsComponent } from './topics/topics.component';
 import { FiltersComponent } from './filters/filters.component';
 import { ResultListComponent } from './result-list/result-list.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ResultListComponent } from './result-list/result-list.component';
     MatNativeDateModule,
     MaterialExampleModule,
     ReactiveFormsModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
