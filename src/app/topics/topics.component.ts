@@ -1,12 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';
-import { Component, Injectable } from '@angular/core';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { Component } from '@angular/core';
 import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
-  MatTreeNestedDataSource,
 } from '@angular/material/tree';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AppConfigData } from '../models/app-config-data';
 import { Topic, TopicFlat } from '../models/topic';
 import { TopicConfig } from '../models/topic-config';
@@ -164,12 +163,10 @@ export class TopicsComponent {
   }
 
 
-
   /**
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
    */
   transformer = (node: Topic, level: number) => {
-    debugger;
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode = existingNode && existingNode.data === node.data ? existingNode : <TopicFlat>{};
     flatNode.label = node.label;
