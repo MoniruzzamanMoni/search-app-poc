@@ -1,3 +1,8 @@
+
+export interface TopicData {
+  data: Topic[];
+  selected: number[];
+}
 export interface Topic {
   id?: string;
   key?: string;

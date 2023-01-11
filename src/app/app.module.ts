@@ -13,6 +13,7 @@ import { FiltersComponent } from './filters/filters.component';
 import { RouterModule } from '@angular/router';
 import { FilterComponent } from './filter/filter.component';
 import { AppConfigService } from './services/app-config.service';
+import { TopicTreeComponent } from './topic-tree/topic-tree.component';
 const appConfigFactory = (appConfigService: AppConfigService) => {
   return () => appConfigService.loadAppConfig();
 };
@@ -22,7 +23,8 @@ const appConfigFactory = (appConfigService: AppConfigService) => {
     AppComponent,
     TopicsComponent,
     FiltersComponent,
-    FilterComponent
+    FilterComponent,
+    TopicTreeComponent
   ],
   imports: [
     BrowserAnimationsModule,
