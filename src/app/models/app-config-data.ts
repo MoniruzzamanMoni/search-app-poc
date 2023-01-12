@@ -1,3 +1,4 @@
+import { Dimension } from './dimension';
 import { Filter } from './filter';
 import { TopicFeatureConfig } from './topic-feature-config';
 
@@ -27,5 +28,14 @@ export class AppConfigData {
 
   getTopicFeatureConfig(): TopicFeatureConfig {
     return new TopicFeatureConfig(this.configMap['topic']);
+  }
+
+   public sortCollection(a: Dimension, b: Dimension): number {
+    const collections = this.getCollections();
+    const aN = collections.findIndex(c => c['N'] === a.id);
+    const bN = collections.findIndex(c => c['N'] === b.id);
+    if (aN === bN) { return 0; }
+    if (aN > bN) { return 1; }
+    return -1;
   }
 }
