@@ -2,15 +2,14 @@
   display: grid;
   grid-template-areas:
     "pageHeader pageHeader"
-    "sidebar searchBar"
-    "sidebar resultList"
+    "sidebar categorySection"
     "sidebar resultList"
     "sidebar pageFooter";
-    grid-template-rows: 70px 70px 1fr 1fr 60px;
+    grid-template-rows: 70px 1fr 1fr 1fr 60px;
     /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr; */
   grid-template-columns: 20% 1fr;
   grid-row-gap: 10px;
-  grid-column-gap: 10px;
+  grid-column-gap: 20px;
   height: 100vh;
   margin: 0;
   }
@@ -26,19 +25,19 @@
 #sidebar {
   grid-area: sidebar;
   }
-#searchBar {
-  grid-area: searchBar;
+#categorySection {
+  grid-area: categorySection;
   }
 /* Stack the layout on small devices/viewports. */
 @media all and (max-width: 575px) {
   #mainContainer {
     grid-template-areas:
       "pageHeader"
-      "searchBar"
+      "categorySection"
       "sidebar"
       "resultList"
       "pageFooter";
-    grid-template-rows: 70px 70px 1fr 1fr 50px;
+    grid-template-rows: 70px 1fr 1fr 1fr 50px;
     grid-template-columns: 1fr;
  }
 }
@@ -54,7 +53,7 @@
   width: 100%;
 }
 
-#sidebar >mat-expansion-panel {
+#sidebar > * {
   /* width: 100%; */
   margin-bottom: 10px;
 }
@@ -63,6 +62,3 @@
   flex: 1 1 auto;
 }
 
-#searchBar > * {
-  width: 100%;
-}

@@ -17,6 +17,7 @@ import { TopicTreeComponent } from './topic-tree/topic-tree.component';
 const appConfigFactory = (appConfigService: AppConfigService) => {
   return () => appConfigService.loadAppConfig();
 };
+import { ResultListComponent } from './result-list/result-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ const appConfigFactory = (appConfigService: AppConfigService) => {
     TopicsComponent,
     FiltersComponent,
     FilterComponent,
-    TopicTreeComponent
+    TopicTreeComponent,
+    ResultListComponent
   ],
   imports: [
     BrowserAnimationsModule,
