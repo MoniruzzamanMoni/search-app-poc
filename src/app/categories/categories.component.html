@@ -1,7 +1,7 @@
 
 <ng-container *ngIf="category.values?.length">
   <h1 class="mat-title">Categories</h1>
-  <mat-chip-listbox aria-label="Category selection">
+  <mat-chip-listbox multiple="true" aria-label="Category selection">
     <mat-chip-option *ngFor="let c of category.values">{{c.name}}</mat-chip-option>
   </mat-chip-listbox>
 </ng-container>
