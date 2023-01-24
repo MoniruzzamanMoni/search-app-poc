@@ -12,13 +12,17 @@ import { TopicsComponent } from './topics/topics.component';
 import { FiltersComponent } from './filters/filters.component';
 import { ResultListComponent } from './result-list/result-list.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SearchOptionMenuComponent } from './search-option-menu/search-option-menu.component';
+import { SearchAdvancedComponent } from './search-advanced/search-advanced.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopicsComponent,
     FiltersComponent,
-    ResultListComponent
+    ResultListComponent,
+    SearchOptionMenuComponent,
+    SearchAdvancedComponent
   ],
   imports: [
     BrowserAnimationsModule,

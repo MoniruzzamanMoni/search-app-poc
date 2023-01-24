@@ -1,0 +1,11 @@
+
+.example-flex-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.example-flex-container mat-card {
+  margin: 40px 20px;
+  width: 400px;
+}
