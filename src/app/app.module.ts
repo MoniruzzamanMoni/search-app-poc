@@ -19,6 +19,7 @@ const appConfigFactory = (appConfigService: AppConfigService) => {
 };
 import { ResultListComponent } from './result-list/result-list.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { ResultListItemComponent } from './result-list-item/result-list-item.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CategoriesComponent } from './categories/categories.component';
     FilterComponent,
     TopicTreeComponent,
     ResultListComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    ResultListItemComponent
   ],
   imports: [
     BrowserAnimationsModule,
