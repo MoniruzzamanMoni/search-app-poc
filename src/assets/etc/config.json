@@ -1777,5 +1777,2411 @@
         "name": "Topic Navigation - new Approach"
       }
     }
-  }
+  },
+  "templates": [
+    {
+      "name": "example",
+      "fields": [
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "default",
+      "fields": [
+        {
+          "field": "titlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "search_title"
+            }
+          ]
+        },
+        {
+          "field": "commoncountry",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "Country"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "last_modified"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "news",
+      "fields": [
+        {
+          "field": "titlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "search_title"
+            }
+          ]
+        },
+        {
+          "field": "commoncountry",
+          "input": [
+            {
+              "type": "prop",
+              "name": "name",
+              "ref": "ibfd-tnsdoc-country"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "ibfd-tnsdoc-date"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "evdnews",
+      "fields": [
+        {
+          "field": "titlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "search_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Author"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "p_content_author_list"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "ibfd-tnsdoc-date"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "journals",
+      "fields": [
+        {
+          "field": "titlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "search_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Author"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "p_content_author_list"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "ibfd-published"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Published online"
+            }
+          ]
+        },
+        {
+          "field": "journalproperty",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "year",
+              "ref": "Year"
+            },
+            {
+              "type": "dimVal",
+              "name": "volume",
+              "ref": "Volume"
+            },
+            {
+              "type": "dimVal",
+              "name": "issue",
+              "ref": "Issue"
+            },
+            {
+              "type": "prop",
+              "name": "complete",
+              "ref": "issuecomplete"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "summary"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "books",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Series"
+            },
+            {
+              "type": "dimVal",
+              "name": "value",
+              "ref": "Series"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "book_series_volume"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Volume"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_reviewdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Last reviewed"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_publishdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Published online"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "category"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ifacahier",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sort_title", "ALPHA"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "search_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "category"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ecj",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commoncountry",
+          "input": [
+            {
+              "type": "prop",
+              "name": "name",
+              "ref": "global_jurisdictions"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_decision_date"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Decision date"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": ""
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_court"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Status"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_status"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "chunk_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dcl",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_decision_date"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Decision date"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": ""
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_court"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "chunk_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cl",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commoncountry",
+          "input": [
+            {
+              "type": "prop",
+              "name": "name",
+              "ref": "global_jurisdictions"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_decision_date"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Decision date"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "chunk_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ttcls",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_decision_date"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Decision date"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": ""
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_court"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Treaty Article"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_treaty_art_par"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "OECD Article"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_oecd_art_par"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "chunk_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "oecd",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Date"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "ibfd-published"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ifrs",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_reviewdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Last reviewed"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ps_evd",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_signdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Signed"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_effectdate1"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Effective Date"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_decision_date"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Decision Date"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Status"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_status"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "sort_year"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "ALPHA"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eulaw",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_signdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Signed"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_effectdate1"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Effective Date"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_decision_date"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Decision Date"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Status"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_status"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "sort_year"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eudir",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_signdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Signed"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_effectdate1"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Effective Date"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_decision_date"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Decision Date"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Status"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_status"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "sort_year"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eucomdec",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_signdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Signed"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_effectdate1"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Effective Date"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_decision_date"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Decision Date"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Status"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_status"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "sort_year"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "vatdir",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_signdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Signed"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_effectdate1"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Effective"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Status"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_status"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ps",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": ""
+            },
+            {
+              "type": "dimVal",
+              "name": "value",
+              "ref": "Issuing Authority"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_signdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Issued"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Document number"
+            },
+            {
+              "type": "dimVal",
+              "name": "value",
+              "ref": "Document Number"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Status"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_status"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "irs",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": ""
+            },
+            {
+              "type": "dimVal",
+              "name": "value",
+              "ref": "Country"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": ""
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_year"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "ibfd-published"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Published online"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "irsdocs",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": ""
+            },
+            {
+              "type": "dimVal",
+              "name": "value",
+              "ref": "Country"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "ibfd-published"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Published online"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cncirc",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": ""
+            },
+            {
+              "type": "dimVal",
+              "name": "value",
+              "ref": "Issuing Authority"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_signdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Issued"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Document number"
+            },
+            {
+              "type": "dimVal",
+              "name": "value",
+              "ref": "Document Number"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Status"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_status"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "treaty",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Signed"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_signdate"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Status"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_status"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "In Force"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_inforcedate"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Effective"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_effectdate1"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Termination"
+            },
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "global_terminationdate"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "MLI Treaty Status"
+            },
+            {
+              "type": "dimVal",
+              "name": "value",
+              "ref": "MLI Matching"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "models",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_publishdate"
+            }
+          ]
+        },
+        {
+          "field": "other-lang-versions",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "docid"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tables",
+      "fields": [
+        {
+          "field": "titlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "search_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "review_date"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Last reviewed"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chapters",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_reviewdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Last reviewed"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "topics",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commonproperty",
+          "input": [
+            {
+              "type": "prop",
+              "name": "value",
+              "ref": "p_content_author_list"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Author"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_reviewdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Last reviewed"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "topics_no_author",
+      "fields": [
+        {
+          "field": "aggrtitlelink",
+          "input": [
+            {
+              "type": "prop",
+              "name": "docid",
+              "ref": "global_link"
+            },
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "global_title"
+            }
+          ]
+        },
+        {
+          "field": "commondate",
+          "input": [
+            {
+              "type": "prop",
+              "name": "date",
+              "ref": "global_reviewdate"
+            },
+            {
+              "type": "literal",
+              "name": "label",
+              "ref": "Last reviewed"
+            }
+          ]
+        },
+        {
+          "field": "titlelink",
+          "aggr": true,
+          "sort": ["sortorder", "NUM"],
+          "input": [
+            {
+              "type": "prop",
+              "name": "path",
+              "ref": "relative_path"
+            },
+            {
+              "type": "prop",
+              "name": "title",
+              "ref": "short_title"
+            }
+          ]
+        },
+        {
+          "field": "collection",
+          "input": [
+            {
+              "type": "dimVal",
+              "name": "name",
+              "ref": "subcategory"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
