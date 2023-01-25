@@ -1,27 +1,17 @@
 <div id="mainContainer">
 
+
   <section id="sidebar">
     <mat-button-toggle-group #group="matButtonToggleGroup">
       <mat-button-toggle checked value="filters">Filters</mat-button-toggle>
       <mat-button-toggle value="topics">Topics</mat-button-toggle>
     </mat-button-toggle-group>
-    <app-filters [hidden]="!(group.value=='filters')"></app-filters>
-    <app-topics [hidden]="!(group.value=='topics')"></app-topics>
+    <app-filters [hidden]="!(group.value==='filters')"></app-filters>
+    <app-topics [hidden]="!(group.value==='topics')"></app-topics>
   </section>
 
   <section id="categorySection">
-    <h1 class="mat-title">Categories</h1>
-    <mat-chip-listbox aria-label="Category selection">
-      <mat-chip-option>News</mat-chip-option>
-      <mat-chip-option>Tables</mat-chip-option>
-      <mat-chip-option>Country Tax Guides</mat-chip-option>
-      <mat-chip-option>Global Topics</mat-chip-option>
-      <mat-chip-option>Treaties & Models</mat-chip-option>
-      <mat-chip-option>Primary Sources</mat-chip-option>
-      <mat-chip-option>Case Law</mat-chip-option>
-      <mat-chip-option>Books</mat-chip-option>
-      <mat-chip-option>Journal Articles & Opinion Places</mat-chip-option>
-    </mat-chip-listbox>
+    <app-categories></app-categories>
   </section>
 
   <section id="resultList">
