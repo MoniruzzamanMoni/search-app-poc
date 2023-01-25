@@ -20,6 +20,9 @@ const appConfigFactory = (appConfigService: AppConfigService) => {
 import { ResultListComponent } from './result-list/result-list.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ResultListItemComponent } from './result-list-item/result-list-item.component';
+import { AppRoutingModule } from './app-routing.module';
+import { SearchOptionMenuComponent } from './search-option-menu/search-option-menu.component';
+import { SearchAdvancedComponent } from './search-advanced/search-advanced.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { ResultListItemComponent } from './result-list-item/result-list-item.com
     TopicTreeComponent,
     ResultListComponent,
     CategoriesComponent,
-    ResultListItemComponent
+    ResultListItemComponent,
+    ResultListComponent,
+    SearchOptionMenuComponent,
+    SearchAdvancedComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -43,7 +49,8 @@ import { ResultListItemComponent } from './result-list-item/result-list-item.com
     RouterModule.forRoot([])
   ],
   providers: [
-    {provide: APP_INITIALIZER, useFactory: appConfigFactory, multi: true, deps: [AppConfigService]}
+    {provide: APP_INITIALIZER, useFactory: appConfigFactory, multi: true, deps: [AppConfigService]},
+    AppRoutingModule,
   ],
   bootstrap: [AppComponent]
 })
