@@ -2,7 +2,7 @@
 # mf-search-app run command
 
 ```
-cd mf-search-app
+cd search-app-poc
 npm i
 npm run serve:single-spa:mf-search-app
 ```
