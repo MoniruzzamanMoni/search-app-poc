@@ -3,6 +3,7 @@ import { AppConfigData } from '../models/app-config-data';
 import { EneRecord } from '../models/enerecord';
 import { EneRecordImpl } from '../models/enerecord-impl';
 import { AppConfigService } from '../services/app-config.service';
+import { RecordTemplate } from '../models/record-template';
 
 @Component({
   selector: 'app-result-list-item',
@@ -15,7 +16,7 @@ export class ResultListItemComponent implements OnInit {
 
   categoryName = '';
   collectionName = '';
-
+  data: any[] = [];
   private appConfigData: AppConfigData;
   constructor(
     private appConfigService: AppConfigService,
@@ -40,10 +41,14 @@ export class ResultListItemComponent implements OnInit {
       collection_code as string
     );
 
-    console.log('TEMPLATE', tpl);
+    const recordTemplate = new RecordTemplate(tpl, this.result as EneRecord, [], new RegExp(/.*/));
 
+    console.log('TEMPLATE', tpl, recordTemplate);
 
-    console.log('Record: ', recordImpl);
+    if (tpl) {
+      this.data = recordTemplate.getOnScreen();
+      console.log('data: ', this.data);
+    }
   }
 
 }

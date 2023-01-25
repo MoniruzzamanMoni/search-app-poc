@@ -1,9 +1,95 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dimension } from "./dimension";
 import { EneRecord } from "./enerecord";
+import { TplField } from "./tplfield";
 
 export class EneRecordImpl {
 
-    constructor(private rec?: EneRecord) {
+    constructor(private rec: EneRecord | undefined) {
+    }
+
+    private compileInput(aggr: boolean, input: any): string | undefined {
+        switch (input.type) {
+            case 'prop':
+                return this.getProperty(aggr, input.ref);
+            case 'dimVal':
+                return this.getDimVal(aggr, input.ref)?.name || '';
+            case 'literal':
+                return input.ref;
+        }
+        return '';
+    }
+
+    private compileField(aggr: boolean, field: TplField): any {
+        // const compiledInput = new Object({ 'field': field.field });
+        let o = {field: field};
+        field.input.map((input: any) => {
+            // compiledInput[input.name] = this.compileInput(aggr, input);
+          o = {...o, [input['name']]: this.compileInput(aggr, input)};
+        });
+        return o;
+    }
+
+    public compileTemplate(fields: TplField[], aggregate: boolean, topicSearchChips: any[]): any[] {
+        const compiledTemplate: any[] = [];
+        fields.map(field => {
+            if (field.aggr) {
+              this.rec?.records?.sort((a, b) => {
+                  if (field.sort && field.sort[1] && field.sort[1] === 'NUM') {
+                    return parseInt(a.properties[field.sort[0]], 10) > parseInt(b.properties[field.sort[0]], 10) ? 1 : -1;
+                  } else {
+                    const s = field?.sort?.[0];
+                    if (s) {
+                      return a.properties[s];
+                    } else {
+                      return -1
+                    }
+                    // return a.properties[field.sort[0]] > b.properties[field.sort[0]] ? 1 : -1;
+                  }
+                })
+                .map( enerec => {
+                  const record = new EneRecordImpl(enerec).compileField(aggregate, field);
+                  if (field.field === 'nestedtitlelink') {
+                    record['subsection'] = this.getSubsections(enerec, topicSearchChips);
+                  }
+                  compiledTemplate.push(record);
+                });
+            } else {
+                compiledTemplate.push(this.compileField(aggregate, field));
+            }
+        });
+        return compiledTemplate;
+    }
+
+  /**
+   * get subsection from Endeca.Relation.References and sort them
+   */
+  private getSubsections(endecaRecord: EneRecord, topicSearchChips: any[]): any[] {
+      if (!topicSearchChips || topicSearchChips.length === 0) {
+        return [];
+      }
+
+      const compiledSubsections: any[] = [];
+      const uidSet = new Set();
+      uidSet.add(endecaRecord.properties['docid'][0]);
+
+      topicSearchChips.forEach( chip => {
+        const topicId = '/' + chip.dimension.name.split(' ')[0];
+        let subsections = endecaRecord.properties['Endeca.Relation.References'];
+        subsections = subsections ? subsections.filter((item: string) => item.startsWith(topicId) ) : [];
+        subsections.forEach((item: string) => {
+          const words = item.split('/');
+          const uid = words[2];
+          if (!uidSet.has(uid)) {
+            compiledSubsections.push(  new Object({ 'code': words[1], 'uid': uid, 'title': words[3].trim() }) );
+            uidSet.add(uid);
+          }
+        });
+      });
+
+     compiledSubsections.sort( (a, b) =>  a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: 'base' }) );
+
+      return compiledSubsections;
     }
 
     /*

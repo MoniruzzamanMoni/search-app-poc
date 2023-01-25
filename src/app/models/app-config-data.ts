@@ -2,7 +2,7 @@
 import { Dimension } from './dimension';
 import { Filter } from './filter';
 import { TopicFeatureConfig } from './topic-feature-config';
-import { TplField } from './tplField';
+import { TplField } from './tplfield';
 
 export class AppConfigData {
   private readonly configMap: any = {};
