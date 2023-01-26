@@ -43,7 +43,7 @@ export class ResultListItemComponent implements OnInit {
 
     const recordTemplate = new RecordTemplate(tpl, this.result as EneRecord, [], new RegExp(/.*/));
 
-    console.log('TEMPLATE', tpl, recordTemplate);
+    // console.log('TEMPLATE', tpl, recordTemplate);
 
     if (tpl) {
       this.data = recordTemplate.getOnScreen();
