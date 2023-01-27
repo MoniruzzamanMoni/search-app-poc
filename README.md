@@ -4,5 +4,5 @@
 ```
 cd search-app-poc
 npm i
-npm run serve:single-spa:mf-search-app
+npm start
 ```
