@@ -1,8 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, Observable, startWith } from 'rxjs';
 import { Option } from '../models/option';
+import { SearchEvent, SearchEventType } from '../models/search-event/search-event';
+import { EndecapodService } from '../services/endecapod.service';
+import { SearchEventBusService } from '../services/search-event-bus.service';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-filter',
@@ -10,9 +14,20 @@ import { Option } from '../models/option';
   styleUrls: ['./filter.component.css'],
 })
 export class FilterComponent {
+  private _option: Option | undefined = undefined;
+
+  constructor(
+    private searchEventBus: SearchEventBusService,
+    private endeca: EndecapodService,
+    private searchService: SearchService
+    ) {
+
+  }
+
+
+
   myControl = new FormControl<string | Option>('');
 
-  private _option: Option | undefined = undefined;
   filteredOptions: Observable<Option[] | undefined> = new Observable();
   @Input()
   set option(val: Option | undefined) {
@@ -53,5 +68,8 @@ export class FilterComponent {
   onChange(c: MatAutocompleteSelectedEvent) {
     this.selectedOptions.push(c.option.value);
     this.optionChange.emit(c.option.value);
+    this.searchService.addParam(c.option.value);
+    this.searchEventBus.publish({type: SearchEventType.AddFilter, data: c.option.value});
+
   }
 }

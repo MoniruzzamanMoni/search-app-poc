@@ -7,6 +7,8 @@ import { Country } from '../models/country';
 import { CollectionService } from '../services/collection.service';
 import { Filter, FilterType } from '../models/filter';
 import { Option } from '../models/option';
+import { SearchEventBusService } from '../services/search-event-bus.service';
+import { SearchEvent, SearchEventType } from '../models/search-event/search-event';
 
 export interface User {
   name: string;
@@ -26,12 +28,17 @@ export class FiltersComponent  implements OnInit {
 
   constructor(
     private endecaService: EndecapodService,
-    private collectionService: CollectionService
+    private collectionService: CollectionService,
+    private searchEventBus: SearchEventBusService
     ) {
 
   }
 
   ngOnInit() {
+
+    this.searchEventBus.on(SearchEventType.AddFilter).subscribe((evt: SearchEvent) => {
+      console.log('event: ', evt);
+    })
     // Todo: Need to decide what collection is selected.
     const filters = this.collectionService.getFilters(0);
 
