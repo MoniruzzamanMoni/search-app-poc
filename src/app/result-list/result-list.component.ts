@@ -32,10 +32,10 @@ export class ResultListComponent implements OnInit {
     )
     .subscribe(evt => {
         console.log('in search result component', evt, this.searchService.getNavigationsString())
-        this.loadResult(this.makeQuery(this.searchService.getNavigationsString()));
+        this.loadResult(this.makeUrl(this.searchService.getNavigationsString()));
     });
 
-    this.loadResult(this.makeQuery());
+    this.loadResult(this.makeUrl());
   }
 
   private loadResult(query: string) {
@@ -45,7 +45,7 @@ export class ResultListComponent implements OnInit {
       this.records = this.searchResult.getRecords();
     });
   }
-  private makeQuery(navigations?: string): string {
+  private makeUrl(navigations?: string): string {
     return `N=${navigations || '0'}&Ne=7487&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Ns=sort_date_common|1`
   }
 }
