@@ -34,7 +34,10 @@ export class FilterComponent {
     this._option = val;
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      map((value) => this.filter(value as Option))
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return this.filter(name as string)
+      })
     );
   }
 
@@ -47,8 +50,7 @@ export class FilterComponent {
   @Output()
   optionChange = new EventEmitter<any>();
 
-  private filter(opt: Option): Option[] | undefined {
-    const filterValue = opt?.name?.toLowerCase();
+  private filter(filterValue: string): Option[] | undefined {
     const selectedIds = this.selectedOptions.map((c) => c.id);
     const notSelected = (option: Option) => !selectedIds.includes(option.id);
 
@@ -56,7 +58,7 @@ export class FilterComponent {
       ? this._option?.values.filter((option) => notSelected(option))
       : this._option?.values.filter(
           (option) =>
-            option.name.toLowerCase().includes(filterValue) &&
+            option.name.toLowerCase().includes(filterValue.toLowerCase()) &&
             notSelected(option)
         );
   }

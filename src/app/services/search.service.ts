@@ -6,20 +6,27 @@ import { Dimension } from '../models/dimension';
 })
 export class SearchService {
 
-  private params: Dimension[] = [];
+  private params: Map<number, Dimension> = new Map();
+
   public addParam(dim: Dimension) {
-   this.params.push(dim);
+    if (!this.params.has(dim.id)) {
+      this.params.set(dim.id, dim);
+    }
   }
 
   public removeParam(dim: Dimension) {
-    this.params = this.params.filter(d => d.id !== dim.id);
+    this.params.delete(dim.id);
   }
 
   public getNavigations(): number[] {
-    return this.params.map(d => d.id);
+    return [...this.params.keys()];
   }
 
   public getNavigationsString(): string {
     return this.getNavigations().join('+');
+  }
+
+  public getNavigationDims() : Dimension[] {
+    return [...this.params.values()];
   }
 }
