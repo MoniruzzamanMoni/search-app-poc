@@ -18,7 +18,6 @@ export class FilterComponent {
 
   constructor(
     private searchEventBus: SearchEventBusService,
-    private endeca: EndecapodService,
     private searchService: SearchService
     ) {
 
@@ -51,15 +50,11 @@ export class FilterComponent {
   optionChange = new EventEmitter<any>();
 
   private filter(filterValue: string): Option[] | undefined {
-    const selectedIds = this.selectedOptions.map((c) => c.id);
-    const notSelected = (option: Option) => !selectedIds.includes(option.id);
-
     return !filterValue
-      ? this._option?.values.filter((option) => notSelected(option))
+      ? this._option?.values
       : this._option?.values.filter(
           (option) =>
-            option.name.toLowerCase().includes(filterValue.toLowerCase()) &&
-            notSelected(option)
+            option.name.toLowerCase().includes(filterValue.toLowerCase())
         );
   }
 

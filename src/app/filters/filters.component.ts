@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, startWith } from 'rxjs';
+import { filter, map, Observable, startWith } from 'rxjs';
 import { EndecapodService } from '../services/endecapod.service';
 import { Country } from '../models/country';
 import { CollectionService } from '../services/collection.service';
@@ -9,6 +9,7 @@ import { Filter, FilterType } from '../models/filter';
 import { Option } from '../models/option';
 import { SearchEventBusService } from '../services/search-event-bus.service';
 import { SearchEvent, SearchEventType } from '../models/search-event/search-event';
+import { SearchService } from '../services/search.service';
 
 export interface User {
   name: string;
@@ -29,19 +30,26 @@ export class FiltersComponent  implements OnInit {
   constructor(
     private endecaService: EndecapodService,
     private collectionService: CollectionService,
-    private searchEventBus: SearchEventBusService
+    private searchEventBus: SearchEventBusService,
+    private searchService: SearchService
     ) {
 
   }
 
   ngOnInit() {
 
-    this.searchEventBus.on(SearchEventType.AddFilter).subscribe((evt: SearchEvent) => {
-      console.log('event: ', evt);
+    this.searchEventBus.on()
+    .pipe(
+      filter((evt: SearchEvent) => evt.type === SearchEventType.AddFilter || evt.type === SearchEventType.RemoveFilter)
+    ).subscribe((evt: SearchEvent) => {
+      console.log('filters: ', evt);
+      this.loadFilterValues(this.collectionService.getFilters(0));
     })
     // Todo: Need to decide what collection is selected.
-    const filters = this.collectionService.getFilters(0);
+    this.loadFilterValues(this.collectionService.getFilters(0));
+  }
 
+  private loadFilterValues(filters: Filter[]) {
     filters.forEach(f => {
       if (f.type === FilterType.SSELECT) {
         this.endecaService.queryUrl(
@@ -65,7 +73,8 @@ export class FiltersComponent  implements OnInit {
 
 
   makeExposeUrl(dim: number): string {
-    const url = `N=0&Ne=${dim}&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Nty=0&Ns=sort_date_common|2`;
+    const nav = this.searchService.getNavigationsString();
+    const url = `N=${nav || '0'}&Ne=${dim}&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Nty=0&Ns=sort_date_common|2`;
     return url;
   }
 }
