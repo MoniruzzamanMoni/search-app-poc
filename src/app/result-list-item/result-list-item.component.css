@@ -4,11 +4,13 @@
   grid-template-areas:
   /* "item-blank item-actions" */
   "item-blank item-category"
-    "item-checkbox item-title"
+    "item-checkbox item-titlelink"
+    ". item-aggrtitlelink"
+    ". item-nestedtitlelink"
     ". item-countries"
     ". item-date"
     ". item-ammendment";
-    grid-template-rows: 20px 1fr 1fr 1fr 1fr;
+    grid-template-rows: 20px 1fr min-content min-content min-content min-content min-content;
     /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr; */
   grid-template-columns: 20px 1fr;
   grid-row-gap: 0;
@@ -26,8 +28,14 @@
 .item-category {
   grid-area: item-category;
   }
-.item-title {
-  grid-area: item-title;
+.item-titlelink {
+  grid-area: item-titlelink;
+  }
+.item-aggrtitlelink {
+  grid-area: item-aggrtitlelink;
+  }
+.item-nestedtitlelink {
+  grid-area: item-nestedtitlelink;
   }
 .item-countries {
   grid-area: item-countries;

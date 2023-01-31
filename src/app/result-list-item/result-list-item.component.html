@@ -10,55 +10,19 @@
       <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
     </div>
   </section>
-  <input class="item-checkbox" type="checkbox" />
+  <input class="item-checkbox" type="checkbox"/>
 
   <ng-container *ngFor="let rec of data">
-    <ng-container *ngIf="rec.field.field==='aggrtitlelink'">
-      <a [href]="rec.path" class="item-aggrtitle mat-subheading-2">{{rec.title}}</a>
-    </ng-container>
-
-    <ng-container *ngIf="rec.field.field==='titlelink'">
-      <a [href]="rec.path" class="item-title mat-subheading-2">{{rec.title}}</a>
-    </ng-container>
-
-    <ng-container *ngIf="rec.field.field==='nestedtitlelink'">
-      <a [href]="rec.path" class="item-nestedtitle mat-subheading-2">{{rec.title}}</a>
-      <ng-container *ngFor="let subItem of rec.subsection">
-        <span>Sub: {{subItem | json}}</span>
-
+    <span class="item-{{rec.field.field}} mat-subheading-2" *ngIf="['aggrtitlelink', 'titlelink', 'nestedtitlelink'].includes(rec.field.field)" >
+      <a [href]="rec.path">{{rec.title}}</a>
+    </span>
+    <span class="item-countries mat-body" *ngIf="rec.field.field==='commoncountry'">{{rec.name}}</span>
+    <span class="item-date mat-body" *ngIf="rec.field.field==='commondate'">{{rec.date}}</span>
+    <span class="item-ammendment mat-body" *ngIf="rec.field==='treaty-articles'">
+      <ng-container *ngFor="let ta of rec.relatedTreatyArticles">
+        <a [href]="ta.href">{{ta.title}}</a>
       </ng-container>
-    </ng-container>
-
-    <ng-container *ngIf="rec.field.field==='commoncountry'">
-      <span class="item-countries mat-body" *ngIf="rec.value">{{rec.label}}{{rec.label?': ':''}}{{rec.value}}</span>
-    </ng-container>
-
-    <ng-container *ngIf="rec.field.field==='commondate'">
-      <span class="item-date mat-body" *ngIf="rec.value">{{rec.label}}{{rec.label?': ':''}}{{rec.value}}</span>
-    </ng-container>
-
-    <ng-container *ngIf="rec.field.field==='collection'">
-      <span class="item-collection mat-body" >Collection: {{rec.name}}</span>
-    </ng-container>
-
-    <ng-container *ngIf="rec.field.field==='commonproperty'">
-      <span class="item-commonproperty mat-body" *ngIf="rec.value">{{rec.label}}{{rec.label?': ':''}}{{rec.value}}</span>
-    </ng-container>
-
-    <ng-container *ngIf="rec.field.field==='journalproperty'">
-      <span class="item-journalproperty mat-body" *ngIf="rec.value">
-        {{rec.year?rec.year:''}}{{(rec.year&&rec.volume)?' ':''}}{{rec.volume?'(Volume '+rec.volume+')':''}}{{(rec.year||rec.volume)&&rec.issue?', ':''}}{{rec.issue?'No. '+rec.issue:''}}{{rec.complete==='n' ? ' (Next Issue)' : ''}}
-      </span>
-    </ng-container>
-
-    <ng-container *ngIf="rec.field.field==='treaty-articles'">
-      <ng-container *ngFor="let subItem of rec.relatedTreatyArticles">
-        <span >{{subItem | json}}</span>
-      </ng-container>
-    </ng-container>
-
-
+    </span>
   </ng-container>
 
-  <!-- <span class="item-ammendment mat-body">Albania- Netherlands Income and Capital Tax Treaty (2004)</span> -->
 </div>
