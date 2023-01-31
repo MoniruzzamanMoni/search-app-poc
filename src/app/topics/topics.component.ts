@@ -31,7 +31,6 @@ export class TopicsComponent {
       .getEnabledTaxonomies()
       .map((topicConfig) => {
         this.topicConfig = topicConfig;
-        console.log('taxonomy', topicConfig);
         this.taxonomyResult = this.endeca.queryUrl(topicConfig.query);
       });
 
@@ -64,7 +63,6 @@ export class TopicsComponent {
       .subscribe((topics) => {
         this.topics = topics;
         this.topicData = this.buildTopicTree(this.topics, [], new Set());
-        console.log('Topic Tree', this.topicData);
       });
   }
 

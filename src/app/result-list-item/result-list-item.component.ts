@@ -40,10 +40,8 @@ export class ResultListItemComponent implements OnInit {
       collection_code as string
     );
 
-    console.log('TEMPLATE', tpl);
 
 
-    console.log('Record: ', recordImpl);
   }
 
 }
