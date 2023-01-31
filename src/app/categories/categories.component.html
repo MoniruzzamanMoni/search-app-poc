@@ -3,7 +3,7 @@
   <h1 class="mat-title">Categories</h1>
   <mat-chip-listbox aria-label="Category selection" (change)="onChipChange($event)">
     <mat-chip-option selectable="true"
-      (selectionChange)="onSelectionChange($event, i)" *ngFor="let c of category.values; let i=index">{{c.name}}</mat-chip-option>
+      (selectionChange)="onSelectionChange(i)" *ngFor="let c of category.values; let i=index">{{c.name}}</mat-chip-option>
   </mat-chip-listbox>
 </ng-container>
 

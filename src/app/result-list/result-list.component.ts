@@ -17,6 +17,11 @@ export class ResultListComponent implements OnInit {
   private defaultQuery = 'N=0&Ne=7487&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Ns=sort_date_common|1';
   searchResult: SearchResult | undefined;
   records: EneRecord[] = [];
+  private loadResultOn = {
+    [SearchEventType.AddFilter]: true,
+    [SearchEventType.RemoveFilter]: true,
+    [SearchEventType.CategoryChange]: true
+  };
   constructor(
     private endeca: EndecapodService,
     private searchEventBus: SearchEventBusService,
@@ -28,7 +33,7 @@ export class ResultListComponent implements OnInit {
 
     this.searchEventBus.on()
     .pipe(
-      filter((evt: SearchEvent) => evt.type === SearchEventType.AddFilter || evt.type === SearchEventType.RemoveFilter)
+      filter((evt: SearchEvent) => this.loadResultOn[evt.type])
     )
     .subscribe(evt => {
         console.log('in search result component', evt, this.searchService.getNavigationsString())

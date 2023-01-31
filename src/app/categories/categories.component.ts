@@ -38,7 +38,7 @@ export class CategoriesComponent implements OnInit{
     console.log('mat listbox change event: ', evt);
   }
 
-  onSelectionChange(evt: MatChipSelectionChange, index: number) {
+  onSelectionChange(index: number) {
     const dim = this.category.values?.[index];
     if (this.prevSelection) {
       this.searchService.removeParam(this.prevSelection as Dimension);
@@ -46,7 +46,7 @@ export class CategoriesComponent implements OnInit{
     }
 
     this.searchService.addParam(dim as Dimension);
-    this.searchEventBus.publish({type: SearchEventType.AddFilter, data: dim});
+    this.searchEventBus.publish({type: SearchEventType.CategoryChange, data: dim});
 
     this.prevSelection = dim;
   }

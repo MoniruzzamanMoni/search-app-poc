@@ -5,5 +5,6 @@ export interface SearchEvent {
 
 export enum SearchEventType {
   AddFilter,
-  RemoveFilter
+  RemoveFilter,
+  CategoryChange
 }

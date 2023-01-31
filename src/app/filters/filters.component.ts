@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, Observable, startWith } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { EndecapodService } from '../services/endecapod.service';
 import { Country } from '../models/country';
 import { CollectionService } from '../services/collection.service';
@@ -10,6 +9,7 @@ import { Option } from '../models/option';
 import { SearchEventBusService } from '../services/search-event-bus.service';
 import { SearchEvent, SearchEventType } from '../models/search-event/search-event';
 import { SearchService } from '../services/search.service';
+import { Dimension } from '../models/dimension';
 
 export interface User {
   name: string;
@@ -26,7 +26,13 @@ export class FiltersComponent  implements OnInit {
   filteredCountries: Observable<Country[]> = new Observable();
   selectedCountries: Country[] = [];
   filters: Filter[] = [];
+  private selectedCategory: Dimension = {id: 0};
 
+  private loadResultOn = {
+    [SearchEventType.AddFilter]: true,
+    [SearchEventType.RemoveFilter]: true,
+    [SearchEventType.CategoryChange]: true
+  };
   constructor(
     private endecaService: EndecapodService,
     private collectionService: CollectionService,
@@ -40,16 +46,18 @@ export class FiltersComponent  implements OnInit {
 
     this.searchEventBus.on()
     .pipe(
-      filter((evt: SearchEvent) => evt.type === SearchEventType.AddFilter || evt.type === SearchEventType.RemoveFilter)
+      filter((evt: SearchEvent) => this.loadResultOn[evt.type])
     ).subscribe((evt: SearchEvent) => {
-      console.log('filters: ', evt);
-      this.loadFilterValues(this.collectionService.getFilters(0));
+      this.selectedCategory  = evt.type === SearchEventType.CategoryChange ? evt.data : this.selectedCategory;
+      this.loadFilterValues(this.collectionService.getFilters(this.selectedCategory.id));
     })
     // Todo: Need to decide what collection is selected.
-    this.loadFilterValues(this.collectionService.getFilters(0));
+    this.loadFilterValues(this.collectionService.getFilters(this.selectedCategory.id));
+
   }
 
   private loadFilterValues(filters: Filter[]) {
+    console.log('Filters: ',filters);
     filters.forEach(f => {
       if (f.type === FilterType.SSELECT) {
         this.endecaService.queryUrl(
@@ -61,7 +69,7 @@ export class FiltersComponent  implements OnInit {
             f.option = <Option>{id: f.N, name: '', multi: f.type === FilterType.MSELECT, disabled: true};
           }
           if (f.option) {
-            f.option.values = r.values;
+            f.option.values = r?.values || [];
             f.option.name = r.name;
           }
       });
