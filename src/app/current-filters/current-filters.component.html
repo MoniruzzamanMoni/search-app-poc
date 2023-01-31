@@ -1,0 +1,17 @@
+<mat-form-field class="example-chip-list" appearance="fill" *ngIf="data.length">
+  <mat-label>Current filters</mat-label>
+  <mat-chip-grid #chipGrid aria-label="Enter fruits">
+    <mat-chip-row *ngFor="let dim of data"
+                  (removed)="remove(dim)"
+                  >
+      {{dim.name}}
+      <button matChipRemove [attr.aria-label]="'remove ' + dim.name">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+    <input style="display: none;" placeholder="New fruit..."
+           [matChipInputFor]="chipGrid"
+           />
+  </mat-chip-grid>
+</mat-form-field>
+

@@ -23,6 +23,7 @@ import { ResultListItemComponent } from './result-list-item/result-list-item.com
 import { AppRoutingModule } from './app-routing.module';
 import { SearchOptionMenuComponent } from './search-option-menu/search-option-menu.component';
 import { SearchAdvancedComponent } from './search-advanced/search-advanced.component';
+import { CurrentFiltersComponent } from './current-filters/current-filters.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SearchAdvancedComponent } from './search-advanced/search-advanced.compo
     ResultListItemComponent,
     ResultListComponent,
     SearchOptionMenuComponent,
-    SearchAdvancedComponent
+    SearchAdvancedComponent,
+    CurrentFiltersComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -30,3 +30,4 @@ export class SearchService {
     return [...this.params.values()];
   }
 }
+

@@ -45,7 +45,7 @@ export class CategoriesComponent implements OnInit{
       // this.searchEventBus.publish({type: SearchEventType.RemoveFilter, data: this.prevSelection});
     }
 
-    this.searchService.addParam(dim as Dimension);
+    // this.searchService.addParam(dim as Dimension);
     this.searchEventBus.publish({type: SearchEventType.CategoryChange, data: dim});
 
     this.prevSelection = dim;

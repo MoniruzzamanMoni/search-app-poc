@@ -67,9 +67,10 @@
   grid-template-areas:
     "pageHeader pageHeader"
     "sidebar categorySection"
+    "sidebar currentFiltersSection"
     "sidebar resultList"
     "sidebar pageFooter";
-    grid-template-rows: 10px 1fr 1fr 1fr 60px;
+    grid-template-rows: 10px 1fr 1fr 1fr 1fr 60px;
     /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr; */
   grid-template-columns: 20% 1fr;
   grid-row-gap: 10px;
@@ -92,16 +93,20 @@
 #categorySection {
   grid-area: categorySection;
   }
+#currentFiltersSection{
+  grid-area: currentFiltersSection;
+  }
 /* Stack the layout on small devices/viewports. */
 @media all and (max-width: 575px) {
   #mainContainer {
     grid-template-areas:
       "pageHeader"
       "categorySection"
+      "currentFiltersSection"
       "sidebar"
       "resultList"
       "pageFooter";
-    grid-template-rows: 70px 1fr 1fr 1fr 50px;
+    grid-template-rows: 70px 1fr 1fr 1fr 1fr 50px;
     grid-template-columns: 1fr;
  }
 }
