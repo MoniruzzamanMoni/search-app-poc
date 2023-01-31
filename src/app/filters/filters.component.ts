@@ -60,7 +60,6 @@ export class FiltersComponent  implements OnInit {
           if (!f.option) {
             f.option = <Option>{id: f.N, name: '', multi: f.type === FilterType.MSELECT, disabled: true};
           }
-          console.log('F: ', f);
           if (f.option) {
             f.option.values = r.values;
             f.option.name = r.name;

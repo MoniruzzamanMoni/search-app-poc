@@ -30,7 +30,6 @@ export class CategoriesComponent implements OnInit{
   ngOnInit(): void {
     this.endeca.queryUrl(this.categoryUrl).subscribe(res => {
       this.category.values =  res['dimensions'].find((d: Dimension) => d.id === 7487).values;
-      console.log('Categories: ', this.category);
       this.category.values?.sort((a, b) => this.appConfigData.sortCollection(a, b));
     })
   }
