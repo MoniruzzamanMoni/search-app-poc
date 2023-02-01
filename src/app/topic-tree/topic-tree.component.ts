@@ -5,7 +5,10 @@ import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
+import { SearchEventType } from '../models/search-event/search-event';
 import { Topic, TopicData, TopicFlat } from '../models/topic';
+import { SearchEventBusService } from '../services/search-event-bus.service';
+import { SearchService } from '../services/search.service';
 
 
 @Component({
@@ -52,7 +55,11 @@ export class TopicTreeComponent {
 
   hasNoContent = (_: number, _nodeData: TopicFlat) => _nodeData.label === '';
 
-  constructor() {
+  constructor(
+    private searchService: SearchService,
+    private searchEventBus: SearchEventBusService
+    ) {
+
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,
@@ -79,6 +86,7 @@ export class TopicTreeComponent {
       existingNode && existingNode.data === node.data
         ? existingNode
         : <TopicFlat>{};
+    flatNode.id = node.id;
     flatNode.label = node.label;
     flatNode.level = level;
     flatNode.expandable = !!node.children?.length;
@@ -110,20 +118,43 @@ export class TopicTreeComponent {
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
   todoItemSelectionToggle(node: TopicFlat): void {
     this.checklistSelection.toggle(node);
-    const descendants = this.treeControl.getDescendants(node);
-    this.checklistSelection.isSelected(node)
-      ? this.checklistSelection.select(...descendants)
-      : this.checklistSelection.deselect(...descendants);
+
+    this.handleSelection(node);
+
+
+    console.log('Item: ',node);
+    // this.searchService.addFilters({id: node})
+
+    // const descendants = this.treeControl.getDescendants(node);
+    // this.checklistSelection.isSelected(node)
+    //   ? this.checklistSelection.select(...descendants)
+    //   : this.checklistSelection.deselect(...descendants);
 
     // Force update for the parent
-    descendants.forEach((child) => this.checklistSelection.isSelected(child));
-    this.checkAllParentsSelection(node);
+    // descendants.forEach((child) => this.checklistSelection.isSelected(child));
+    // this.checkAllParentsSelection(node);
+  }
+  private handleSelection(node: TopicFlat) {
+    const dim = {id: parseInt(node.id || ''), name: node.label};
+
+    if (this.checklistSelection.isSelected(node)) {
+      this.searchService.addFilters(dim);
+      this.searchEventBus.publish({type: SearchEventType.AddFilter, data: dim})
+      console.log('selected')
+    } else {
+      this.searchService.removeFilters(dim);
+      this.searchEventBus.publish({type: SearchEventType.RemoveFilter, data: dim})
+      console.log('unselected');
+    }
+
   }
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: TopicFlat): void {
     this.checklistSelection.toggle(node);
-    this.checkAllParentsSelection(node);
+    // this.checkAllParentsSelection(node);
+    this.handleSelection(node);
+    console.log('Leaf: ',node);
   }
 
   /* Checks all the parents when a leaf node is selected/unselected */
