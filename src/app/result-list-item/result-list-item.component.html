@@ -13,9 +13,20 @@
   <input class="item-checkbox" type="checkbox"/>
 
   <ng-container *ngFor="let rec of data">
-    <span class="item-{{rec.field.field}} mat-subheading-2" *ngIf="['aggrtitlelink', 'titlelink', 'nestedtitlelink'].includes(rec.field.field)" >
-      <a [href]="rec.path">{{rec.title}}</a>
+    <span class="item-aggrtitlelink mat-subheading-2">
+      <a *ngFor="let agg of aggrTitleLinks" [href]="agg.path">{{agg.title}}</a>
     </span>
+
+    <span class="item-titlelink mat-subheading-2">
+      <span *ngFor="let agg of titleLinks">
+        <a [href]="agg.path">{{agg.title}}</a>
+        <br />
+      </span>
+    </span>
+    <span class="item-nestedtitlelink mat-subheading-2">
+      <a *ngFor="let agg of nestedTitleLinks" [href]="agg.path">{{agg.title}}</a>
+    </span>
+
     <span class="item-countries mat-body" *ngIf="rec.field.field==='commoncountry'">{{rec.name}}</span>
     <span class="item-date mat-body" *ngIf="rec.field.field==='commondate'">{{rec.date}}</span>
     <span class="item-ammendment mat-body" *ngIf="rec.field==='treaty-articles'">
