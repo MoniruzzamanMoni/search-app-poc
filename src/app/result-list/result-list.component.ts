@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { filter } from 'rxjs';
+import { filter, tap } from 'rxjs';
 import { EneRecord } from '../models/enerecord';
 import { SearchEvent, SearchEventType } from '../models/search-event/search-event';
 import { SearchResult } from '../models/search-result';
@@ -33,6 +33,7 @@ export class ResultListComponent implements OnInit {
 
     this.searchEventBus.on()
     .pipe(
+      tap(() => console.log('before filter')),
       filter((evt: SearchEvent) => this.loadResultOn[evt.type])
     )
     .subscribe(evt => {
@@ -45,7 +46,6 @@ export class ResultListComponent implements OnInit {
 
   private loadResult(query: string) {
     this.endeca.queryUrl(query).subscribe(res => {
-      console.log('Initial result: ', res);
       this.searchResult = new SearchResult(res);
       this.records = this.searchResult.getRecords();
     });

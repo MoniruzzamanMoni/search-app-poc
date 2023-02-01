@@ -28,7 +28,6 @@ export class CurrentFiltersComponent implements OnInit{
       filter((evt: SearchEvent) => this.loadResultOn[evt.type])
     ).subscribe((evt: SearchEvent) => {
       this.data = this.searchService.getNavigationDims();
-      console.log('Filters ', this.data);
     });
   }
 

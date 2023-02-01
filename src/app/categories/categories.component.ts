@@ -34,9 +34,6 @@ export class CategoriesComponent implements OnInit{
     })
   }
 
-  onChipChange(evt: MatChipListboxChange) {
-    console.log('mat listbox change event: ', evt);
-  }
 
   onSelectionChange(index: number) {
     const dim = this.category.values?.[index];
