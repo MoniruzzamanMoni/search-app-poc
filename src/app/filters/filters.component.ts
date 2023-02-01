@@ -27,7 +27,7 @@ export class FiltersComponent  implements OnInit {
   selectedCountries: Country[] = [];
   filters: Filter[] = [];
   private defaultCategory: Dimension = {id: 0};
-  private selectedCategory: Dimension = this.defaultCategory;
+
 
   private loadResultOn = {
     [SearchEventType.AddFilter]: true,
@@ -49,11 +49,11 @@ export class FiltersComponent  implements OnInit {
     .pipe(
       filter((evt: SearchEvent) => this.loadResultOn[evt.type])
     ).subscribe((evt: SearchEvent) => {
-      this.selectedCategory  = evt.type === SearchEventType.CategoryChange  && evt.data ? evt.data : this.defaultCategory;
-      this.loadFilterValues(this.collectionService.getFilters(this.selectedCategory.id));
+      const cat: Dimension  = evt.type === SearchEventType.CategoryChange  && evt.data ? evt.data : this.defaultCategory;
+      this.loadFilterValues(this.collectionService.getFilters(cat.id));
     })
     // Todo: Need to decide what collection is selected.
-    this.loadFilterValues(this.collectionService.getFilters(this.selectedCategory.id));
+    this.loadFilterValues(this.collectionService.getFilters(this.defaultCategory.id));
 
   }
 
