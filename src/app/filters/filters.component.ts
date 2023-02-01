@@ -44,7 +44,6 @@ export class FiltersComponent  implements OnInit {
   }
 
   ngOnInit() {
-
     this.searchEventBus.on()
     .pipe(
       filter((evt: SearchEvent) => this.loadResultOn[evt.type])

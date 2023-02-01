@@ -16,7 +16,7 @@ import { SearchService } from '../services/search.service';
 export class CategoriesComponent implements OnInit{
   private categoryUrl = 'N=0&Ne=7487&Nr=AND(3,10)&Nu=global_rollup_key&Np=2&Nty=0&Ns=sort_date_common|1';
   private appConfigData: AppConfigData;
-  private prevSelection: Dimension | undefined;
+  private currentSelection: Dimension | undefined;
   category: Dimension = {id: 7487}
   constructor(
     private endeca: EndecapodService,
@@ -36,18 +36,19 @@ export class CategoriesComponent implements OnInit{
 
 
   onSelectionChange(evt: MatChipSelectionChange, index: number) {
+    this.resetCurrentSelection();
     const dim = this.category.values?.[index];
     if (evt.selected) {
       this.searchService.addCategory(dim as Dimension);
-      this.searchEventBus.publish({type: SearchEventType.CategoryChange, data: dim});
-      this.prevSelection = dim;
-      return;
+      this.currentSelection = dim;
     }
+    this.searchEventBus.publish({type: SearchEventType.CategoryChange, data: this.currentSelection});
+  }
 
-    if (this.prevSelection) {
-      this.searchService.removeCategory(this.prevSelection as Dimension);
-      this.searchEventBus.publish({type: SearchEventType.CategoryChange, data: dim});
-      this.prevSelection = undefined;
+  private resetCurrentSelection() {
+    if (this.currentSelection) {
+      this.searchService.removeCategory(this.currentSelection as Dimension);
+      this.currentSelection = undefined;
     }
   }
 }
