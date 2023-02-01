@@ -64,7 +64,7 @@ export class FilterComponent {
 
   onChange(c: MatAutocompleteSelectedEvent) {
     this.selectedOptions.push(c.option.value);
-    this.searchService.addParam(c.option.value);
+    this.searchService.addFilters(c.option.value);
     this.searchEventBus.publish({type: SearchEventType.AddFilter, data: c.option.value});
     this.myControl.setValue('');
   }

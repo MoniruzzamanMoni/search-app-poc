@@ -27,13 +27,13 @@ export class CurrentFiltersComponent implements OnInit{
     this.searchEventBus.on().pipe(
       filter((evt: SearchEvent) => this.loadResultOn[evt.type])
     ).subscribe((evt: SearchEvent) => {
-      this.data = this.searchService.getNavigationDims();
+      this.data = this.searchService.getCurrentFilters();
     });
   }
 
   remove(dim: Dimension) {
     // this.data = this.data.filter(d => d.id !== dim.id);
-    this.searchService.removeParam(dim);
+    this.searchService.removeFilters(dim);
     this.searchEventBus.publish({type: SearchEventType.RemoveFilter, data: dim});
   }
 }

@@ -6,20 +6,31 @@ import { Dimension } from '../models/dimension';
 })
 export class SearchService {
 
-  private params: Map<number, Dimension> = new Map();
+  private filters: Map<number, Dimension> = new Map();
+  private categories: Map<number, Dimension> = new Map();
 
-  public addParam(dim: Dimension) {
-    if (!this.params.has(dim.id)) {
-      this.params.set(dim.id, dim);
+  public addFilters(dim: Dimension) {
+    if (!this.filters.has(dim.id)) {
+      this.filters.set(dim.id, dim);
     }
   }
 
-  public removeParam(dim: Dimension) {
-    this.params.delete(dim.id);
+  public removeFilters(dim: Dimension) {
+    this.filters.delete(dim.id);
+  }
+
+  public addCategory(dim: Dimension) {
+    if (!this.categories.has(dim.id)) {
+      this.categories.set(dim.id, dim);
+    }
+  }
+
+  public removeCategory(dim: Dimension) {
+    this.categories.delete(dim.id);
   }
 
   public getNavigations(): number[] {
-    return [...this.params.keys()];
+    return [...this.filters.keys(), ...this.categories.keys()];
   }
 
   public getNavigationsString(): string {
@@ -27,7 +38,11 @@ export class SearchService {
   }
 
   public getNavigationDims() : Dimension[] {
-    return [...this.params.values()];
+    return [...this.filters.values(), ...this.categories.values()];
+  }
+
+  public getCurrentFilters(): Dimension[] {
+    return [...this.filters.values()];
   }
 }
 

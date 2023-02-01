@@ -35,16 +35,19 @@ export class CategoriesComponent implements OnInit{
   }
 
 
-  onSelectionChange(index: number) {
+  onSelectionChange(evt: MatChipSelectionChange, index: number) {
     const dim = this.category.values?.[index];
-    if (this.prevSelection) {
-      this.searchService.removeParam(this.prevSelection as Dimension);
-      // this.searchEventBus.publish({type: SearchEventType.RemoveFilter, data: this.prevSelection});
+    if (evt.selected) {
+      this.searchService.addCategory(dim as Dimension);
+      this.searchEventBus.publish({type: SearchEventType.CategoryChange, data: dim});
+      this.prevSelection = dim;
+      return;
     }
 
-    // this.searchService.addParam(dim as Dimension);
-    this.searchEventBus.publish({type: SearchEventType.CategoryChange, data: dim});
-
-    this.prevSelection = dim;
+    if (this.prevSelection) {
+      this.searchService.removeCategory(this.prevSelection as Dimension);
+      this.searchEventBus.publish({type: SearchEventType.CategoryChange, data: dim});
+      this.prevSelection = undefined;
+    }
   }
 }
