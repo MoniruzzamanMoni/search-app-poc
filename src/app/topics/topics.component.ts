@@ -40,15 +40,15 @@ export class TopicsComponent {
   ) {
 
     this.processResult();
-    this.searchEventBus.on().
-    pipe(
-      filter((evt: SearchEvent) => this.loadResultOn[evt.type])
-    ).subscribe((evt: SearchEvent) => {
-      if (this.topicData) {
-        this.topicData.data = [];
-      }
-      this.result.next(this.endeca.queryUrl(this.makeUrl(this.searchService.getNavigationsString())))
-    })
+    // this.searchEventBus.on().
+    // pipe(
+    //   filter((evt: SearchEvent) => this.loadResultOn[evt.type])
+    // ).subscribe((evt: SearchEvent) => {
+    //   if (this.topicData) {
+    //     this.topicData.data = [];
+    //   }
+    //   // this.result.next(this.endeca.queryUrl(this.makeUrl(this.searchService.getNavigationsString())))
+    // })
 
     this.appConfigData = new AppConfigData(this.appconfigService.config);
     this.appConfigData
