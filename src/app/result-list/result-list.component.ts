@@ -43,6 +43,7 @@ export class ResultListComponent implements OnInit {
   }
 
   private loadResult(query: string) {
+    this.records = [];
     this.endeca.queryUrl(query).subscribe(res => {
       this.searchResult = new SearchResult(res);
       this.records = this.searchResult.getRecords();

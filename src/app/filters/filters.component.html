@@ -7,9 +7,13 @@
   </mat-expansion-panel-header>
 
   <form class="example-form">
-
-    <ng-container *ngFor="let f of filters">
-      <app-filter *ngIf="f.option?.values?.length" [option]="f.option"></app-filter>
+    <ng-container *ngIf="filters.length">
+      <ng-container *ngFor="let f of filters">
+        <app-filter *ngIf="f.option?.values?.length; else loading" [option]="f.option"></app-filter>
+        <ng-template #loading>
+          <app-spinner></app-spinner>
+        </ng-template>
+      </ng-container>
     </ng-container>
   </form>
 </mat-expansion-panel>

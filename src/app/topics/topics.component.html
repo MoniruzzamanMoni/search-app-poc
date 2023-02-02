@@ -5,6 +5,9 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
 
-  <app-topic-tree *ngIf="topicData?.data?.length" [topicData]="topicData"></app-topic-tree>
+  <app-topic-tree *ngIf="topicData?.data?.length; else loading" [topicData]="topicData"></app-topic-tree>
+  <ng-template #loading>
+    <app-spinner></app-spinner>
+  </ng-template>
 
 </mat-expansion-panel>

@@ -1,5 +1,8 @@
 <div class="result-list-container">
-  <ng-container *ngIf="records.length">
+  <ng-container *ngIf="records.length; else loading">
     <app-result-list-item *ngFor="let rec of records" [result]="rec"></app-result-list-item>
   </ng-container>
+  <ng-template #loading>
+    <app-spinner></app-spinner>
+  </ng-template>
 </div>

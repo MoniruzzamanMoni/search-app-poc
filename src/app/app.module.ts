@@ -24,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SearchOptionMenuComponent } from './search-option-menu/search-option-menu.component';
 import { SearchAdvancedComponent } from './search-advanced/search-advanced.component';
 import { CurrentFiltersComponent } from './current-filters/current-filters.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CurrentFiltersComponent } from './current-filters/current-filters.compo
     ResultListComponent,
     SearchOptionMenuComponent,
     SearchAdvancedComponent,
-    CurrentFiltersComponent
+    CurrentFiltersComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserAnimationsModule,

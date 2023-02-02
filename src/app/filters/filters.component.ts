@@ -57,6 +57,7 @@ export class FiltersComponent  implements OnInit {
   }
 
   private loadFilterValues(filters: Filter[]) {
+    this.filters = [];
     filters.forEach(f => {
       if (f.type === FilterType.SSELECT) {
         this.endecaService.queryUrl(
