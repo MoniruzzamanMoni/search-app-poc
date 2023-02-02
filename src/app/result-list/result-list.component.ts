@@ -33,11 +33,9 @@ export class ResultListComponent implements OnInit {
 
     this.searchEventBus.on()
     .pipe(
-      tap(() => console.log('before filter')),
       filter((evt: SearchEvent) => this.loadResultOn[evt.type])
     )
     .subscribe(evt => {
-        console.log('in search result component', evt, this.searchService.getNavigationsString())
         this.loadResult(this.makeUrl(this.searchService.getNavigationsString()));
     });
 

@@ -122,7 +122,6 @@ export class TopicTreeComponent {
     this.handleSelection(node);
 
 
-    console.log('Item: ',node);
     // this.searchService.addFilters({id: node})
 
     // const descendants = this.treeControl.getDescendants(node);
@@ -140,11 +139,9 @@ export class TopicTreeComponent {
     if (this.checklistSelection.isSelected(node)) {
       this.searchService.addFilters(dim);
       this.searchEventBus.publish({type: SearchEventType.AddFilter, data: dim})
-      console.log('selected')
     } else {
       this.searchService.removeFilters(dim);
       this.searchEventBus.publish({type: SearchEventType.RemoveFilter, data: dim})
-      console.log('unselected');
     }
 
   }
@@ -154,7 +151,6 @@ export class TopicTreeComponent {
     this.checklistSelection.toggle(node);
     // this.checkAllParentsSelection(node);
     this.handleSelection(node);
-    console.log('Leaf: ',node);
   }
 
   /* Checks all the parents when a leaf node is selected/unselected */

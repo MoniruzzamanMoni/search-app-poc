@@ -49,7 +49,6 @@ export class ResultListItemComponent implements OnInit {
 
     if (tpl) {
       this.data = recordTemplate.getOnScreen();
-      console.log('DATA', this.data);
     }
 
 
@@ -63,7 +62,6 @@ export class ResultListItemComponent implements OnInit {
     this.nestedTitleLinks = this.data.filter(f => f.field.field === 'nestedtitlelink');
 
     this.data = this.data.filter(f => !links.includes(f.field.field));
-    console.log('data', this.data);
   }
 
 }
