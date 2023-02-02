@@ -47,7 +47,6 @@ export class TopicsComponent {
       if (this.topicData) {
         this.topicData.data = [];
       }
-      console.log('Time to load the topics again', evt);
       this.result.next(this.endeca.queryUrl(this.makeUrl(this.searchService.getNavigationsString())))
     })
 
