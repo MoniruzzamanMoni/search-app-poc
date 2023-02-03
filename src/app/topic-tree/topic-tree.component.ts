@@ -90,6 +90,7 @@ export class TopicTreeComponent {
     flatNode.label = node.label;
     flatNode.level = level;
     flatNode.expandable = !!node.children?.length;
+    flatNode.disabled = node.disabled;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;

@@ -8,7 +8,7 @@ export interface Topic {
   key?: string;
   label?: string;
   data?: string;
-  selectable?: boolean;
+  disabled?: boolean;
   children: Topic[];
   parent?: Topic;
 }
@@ -18,7 +18,7 @@ export interface TopicFlat {
   key?: string;
   label?: string;
   data?: string;
-  selectable?: boolean;
+  disabled?: boolean;
   level: number;
   expandable: boolean;
 }

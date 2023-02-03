@@ -23,7 +23,9 @@ export class TopicsComponent {
   private result: Subject<Observable<any>> = new Subject();
 
   private topicConfig: TopicConfig | undefined;
-  topics: any[] | undefined;
+  private topicMap: Map<string, boolean> = new Map();
+  initialTopics: any[] | undefined;
+
   topicData: TopicData | undefined;
 
    private loadResultOn = {
@@ -40,15 +42,15 @@ export class TopicsComponent {
   ) {
 
     this.processResult();
-    // this.searchEventBus.on().
-    // pipe(
-    //   filter((evt: SearchEvent) => this.loadResultOn[evt.type])
-    // ).subscribe((evt: SearchEvent) => {
-    //   if (this.topicData) {
-    //     this.topicData.data = [];
-    //   }
-    //   // this.result.next(this.endeca.queryUrl(this.makeUrl(this.searchService.getNavigationsString())))
-    // })
+    this.searchEventBus.on().
+    pipe(
+      filter((evt: SearchEvent) => this.loadResultOn[evt.type])
+    ).subscribe((evt: SearchEvent) => {
+      // if (this.topicData) {
+      //   this.topicData.data = [];
+      // }
+      this.result.next(this.endeca.queryUrl(this.makeUrl(this.searchService.getNavigationsString())))
+    })
 
     this.appConfigData = new AppConfigData(this.appconfigService.config);
     this.appConfigData
@@ -90,8 +92,12 @@ export class TopicsComponent {
           })
         )
         .subscribe((topics) => {
-          this.topics = topics;
-          this.topicData = this.buildTopicTree(this.topics, [], new Set());
+          if (!this.initialTopics?.length) {
+            this.initialTopics = topics;
+          }
+          this.topicMap = new Map();
+          topics.forEach(t => this.topicMap.set(t.code, true));
+          this.topicData = this.buildTopicTree(this.initialTopics, [], new Set());
         });
 
   }
@@ -100,17 +106,13 @@ export class TopicsComponent {
     return `N=3+10+${navigations || ''}&Ne=7838+7839+7840+7841&select=relative_path"`;
   }
 
-  private buildTopicTree(
-    taxtopics: any[],
-    chips: any[],
-    expandedNodes: Set<number>
-  ) {
+  private buildTopicTree(taxtopics: any[], chips: any[], expandedNodes: Set<number>) {
     return taxtopics.reduce(
       (acc, taxtopic) => {
         const node: any = {
           label: taxtopic['label'],
           data: taxtopic['code'],
-          selectable: taxtopic['selectable'],
+          disabled: !this.topicMap.has(taxtopic['code']),
           id: taxtopic['id'],
           key: taxtopic['code'],
         };
