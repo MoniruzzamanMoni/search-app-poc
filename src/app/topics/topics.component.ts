@@ -23,10 +23,10 @@ export class TopicsComponent {
   private result: Subject<Observable<any>> = new Subject();
 
   private topicConfig: TopicConfig | undefined;
-  private topicMap: Map<string, boolean> = new Map();
-  initialTopics: any[] | undefined;
+
 
   topicData: TopicData | undefined;
+  topics: any[] = [];
 
    private loadResultOn = {
     [SearchEventType.AddFilter]: true,
@@ -92,12 +92,7 @@ export class TopicsComponent {
           })
         )
         .subscribe((topics) => {
-          if (!this.initialTopics?.length) {
-            this.initialTopics = topics;
-          }
-          this.topicMap = new Map();
-          topics.forEach(t => this.topicMap.set(t.code, true));
-          this.topicData = this.buildTopicTree(this.initialTopics, [], new Set());
+          this.topics = topics;
         });
 
   }
@@ -106,58 +101,5 @@ export class TopicsComponent {
     return `N=3+10+${navigations || ''}&Ne=7838+7839+7840+7841&select=relative_path"`;
   }
 
-  private buildTopicTree(taxtopics: any[], chips: any[], expandedNodes: Set<number>) {
-    return taxtopics.reduce(
-      (acc, taxtopic) => {
-        const node: any = {
-          label: taxtopic['label'],
-          data: taxtopic['code'],
-          disabled: !this.topicMap.has(taxtopic['code']),
-          id: taxtopic['id'],
-          key: taxtopic['code'],
-        };
-        if (chips.find((id) => id === node.id)) {
-          acc.selected.push(node);
-        }
-        node['expanded'] = expandedNodes.has(node.id);
-        const parent = this.getTaxtopicParent(
-          acc.data,
-          this.getTaxtopicParentLabel(node.data)
-        );
-        if (parent) {
-          if (!parent['children']) {
-            parent['children'] = [];
-          }
-          node['parent'] = parent;
-          parent['children'].push(node);
-        } else {
-          acc.data.push(node);
-        }
-        return acc;
-      },
-      { data: [], selected: [] }
-    );
-  }
 
-  private getTaxtopicParentLabel(tc: string) {
-    return tc.substring(0, tc.lastIndexOf('_'));
-  }
-
-  private getTaxtopicParent(acc: any[], parentLabel: string): any {
-    for (let i = 0; i < acc.length; i++) {
-      const taxtopic = acc[i];
-      if (taxtopic['data'] === parentLabel) {
-        return taxtopic;
-      }
-      if (taxtopic['children']) {
-        const taxtopicParent = this.getTaxtopicParent(
-          taxtopic['children'],
-          parentLabel
-        );
-        if (taxtopicParent) {
-          return taxtopicParent;
-        }
-      }
-    }
-  }
 }

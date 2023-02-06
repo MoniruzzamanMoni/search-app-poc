@@ -6,7 +6,7 @@ import {
   MatTreeFlattener,
 } from '@angular/material/tree';
 import { SearchEventType } from '../models/search-event/search-event';
-import { Topic, TopicData, TopicFlat } from '../models/topic';
+import { Topic, TopicFlat } from '../models/topic';
 import { SearchEventBusService } from '../services/search-event-bus.service';
 import { SearchService } from '../services/search.service';
 
@@ -17,12 +17,39 @@ import { SearchService } from '../services/search.service';
   styleUrls: ['./topic-tree.component.css'],
 })
 export class TopicTreeComponent {
+
+  private topicMap: Map<string, boolean> = new Map();
+  initialTopics: any[] = [];
+
   @Input()
-  set topicData(val: TopicData | undefined) {
+  set topicData(val: any[]) {
     if (val) {
-      this.dataSource.data = val.data;
+      if (this.initialTopics.length === 0) {
+        this.initialTopics = val;
+      }
+      this.topicMap = new Map();
+      val.forEach(t => this.topicMap.set(t.code, true));
+      const topicData = this.buildTopicTree(this.initialTopics, [], new Set());
+
+      this.dataSource.data = topicData.data;
+
+
+
+      if (this.selectedNodes.size > 0) {
+        [...this.selectedNodes.values()].forEach(n => {
+          const tNode = this.treeControl.dataNodes.find(d => d.data === n.data)
+          this.checklistSelection.select(tNode as TopicFlat);
+          const p = this.getParentNode(tNode as TopicFlat);
+          this.treeControl.expand(p as TopicFlat);
+        })
+      }
     }
   }
+
+
+
+  selectedNodes: Map<string, TopicFlat> = new Map();
+
 
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap = new Map<TopicFlat, Topic>();
@@ -91,6 +118,7 @@ export class TopicTreeComponent {
     flatNode.level = level;
     flatNode.expandable = !!node.children?.length;
     flatNode.disabled = node.disabled;
+    flatNode.data = node.data;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;
@@ -138,9 +166,11 @@ export class TopicTreeComponent {
     const dim = {id: parseInt(node.id || ''), name: node.label};
 
     if (this.checklistSelection.isSelected(node)) {
+      this.selectedNodes.set(node.data as string, node);
       this.searchService.addFilters(dim);
       this.searchEventBus.publish({type: SearchEventType.AddFilter, data: dim})
     } else {
+      this.selectedNodes.delete(node.data as string);
       this.searchService.removeFilters(dim);
       this.searchEventBus.publish({type: SearchEventType.RemoveFilter, data: dim})
     }
@@ -197,5 +227,63 @@ export class TopicTreeComponent {
       }
     }
     return null;
+  }
+
+
+
+   private buildTopicTree(taxtopics: any[], chips: any[], expandedNodes: Set<number>) {
+    return taxtopics.reduce(
+      (acc, taxtopic) => {
+        const shouldDisable = (code: string) => !(this.topicMap.has(code) || this.selectedNodes.has(code));
+        const node: any = {
+          label: taxtopic['label'],
+          data: taxtopic['code'],
+          disabled: shouldDisable(taxtopic['code']),
+          id: taxtopic['id'],
+          key: taxtopic['code'],
+        };
+        if (chips.find((id) => id === node.id)) {
+          acc.selected.push(node);
+        }
+        node['expanded'] = expandedNodes.has(node.id);
+        const parent = this.getTaxtopicParent(
+          acc.data,
+          this.getTaxtopicParentLabel(node.data)
+        );
+        if (parent) {
+          if (!parent['children']) {
+            parent['children'] = [];
+          }
+          node['parent'] = parent;
+          parent['children'].push(node);
+        } else {
+          acc.data.push(node);
+        }
+        return acc;
+      },
+      { data: [], selected: [] }
+    );
+  }
+
+  private getTaxtopicParentLabel(tc: string) {
+    return tc.substring(0, tc.lastIndexOf('_'));
+  }
+
+  private getTaxtopicParent(acc: any[], parentLabel: string): any {
+    for (let i = 0; i < acc.length; i++) {
+      const taxtopic = acc[i];
+      if (taxtopic['data'] === parentLabel) {
+        return taxtopic;
+      }
+      if (taxtopic['children']) {
+        const taxtopicParent = this.getTaxtopicParent(
+          taxtopic['children'],
+          parentLabel
+        );
+        if (taxtopicParent) {
+          return taxtopicParent;
+        }
+      }
+    }
   }
 }
