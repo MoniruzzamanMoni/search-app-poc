@@ -33,15 +33,16 @@ export class TopicTreeComponent {
 
       this.dataSource.data = topicData.data;
 
-
+      this.treeControl.expansionModel.selected.forEach(n => {
+        const eNode = this.treeControl.dataNodes.find(dn => dn.data === n.data)
+        this.treeControl.expand(eNode as TopicFlat);
+      });
 
       if (this.selectedNodes.size > 0) {
-        [...this.selectedNodes.values()].forEach(n => {
-          const tNode = this.treeControl.dataNodes.find(d => d.data === n.data)
-          this.checklistSelection.select(tNode as TopicFlat);
-          const p = this.getParentNode(tNode as TopicFlat);
-          this.treeControl.expand(p as TopicFlat);
-        })
+        this.checklistSelection.selected.forEach(n => {
+          const tNode = this.treeControl.dataNodes.find(d => d.data === n.data);
+          this.checklistSelection.setSelection(tNode as TopicFlat);
+        });
       }
     }
   }
@@ -245,7 +246,7 @@ export class TopicTreeComponent {
         if (chips.find((id) => id === node.id)) {
           acc.selected.push(node);
         }
-        node['expanded'] = expandedNodes.has(node.id);
+
         const parent = this.getTaxtopicParent(
           acc.data,
           this.getTaxtopicParentLabel(node.data)
