@@ -5,7 +5,8 @@ import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
-import { SearchEventType } from '../models/search-event/search-event';
+import { filter, map } from 'rxjs';
+import { SearchEvent, SearchEventType } from '../models/search-event/search-event';
 import { Topic, TopicFlat } from '../models/topic';
 import { SearchEventBusService } from '../services/search-event-bus.service';
 import { SearchService } from '../services/search.service';
@@ -85,6 +86,17 @@ export class TopicTreeComponent {
     private searchService: SearchService,
     private searchEventBus: SearchEventBusService
     ) {
+
+
+      this.searchEventBus.on(SearchEventType.RemoveFilter)
+      .pipe(
+        map((evt: SearchEvent) => {
+          const node = [...this.selectedNodes.values()].find(v => v.id === evt.data.id);
+          return node;
+        }),
+        filter(n => !!n)
+      )
+      .subscribe(n => this.selectedNodes.delete(n?.data as string));
 
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
