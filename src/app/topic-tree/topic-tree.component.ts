@@ -38,12 +38,10 @@ export class TopicTreeComponent {
         this.treeControl.expand(eNode as TopicFlat);
       });
 
-      if (this.selectedNodes.size > 0) {
-        this.checklistSelection.selected.forEach(n => {
-          const tNode = this.treeControl.dataNodes.find(d => d.data === n.data);
-          this.checklistSelection.setSelection(tNode as TopicFlat);
-        });
-      }
+
+      const nodes = this.treeControl.dataNodes.filter(dn => this.selectedNodes.has(dn.data as string));
+      this.checklistSelection = new SelectionModel<TopicFlat>(true, nodes);
+      console.log('OLD SELECTION', this.checklistSelection.selected);
     }
   }
 
@@ -71,7 +69,7 @@ export class TopicTreeComponent {
   dataSource: MatTreeFlatDataSource<Topic, TopicFlat>;
 
   /** The selection for checklist */
-  checklistSelection = new SelectionModel<TopicFlat>(true /* multiple */);
+  checklistSelection = new SelectionModel<TopicFlat>(true);
 
   getLevel = (node: TopicFlat) => node.level;
 

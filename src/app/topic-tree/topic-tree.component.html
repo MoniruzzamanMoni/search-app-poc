@@ -15,7 +15,8 @@
       </mat-icon>
     </button>
     <mat-checkbox
-                [disabled]="node.disabled"
+                  [disabled]="node.disabled"
+                  [checked]="checklistSelection.isSelected(node)"
                   (change)="todoItemSelectionToggle(node)">{{node.label}}</mat-checkbox>
   </mat-tree-node>
 </mat-tree>
