@@ -42,7 +42,6 @@ export class TopicTreeComponent {
 
       const nodes = this.treeControl.dataNodes.filter(dn => this.selectedNodes.has(dn.data as string));
       this.checklistSelection = new SelectionModel<TopicFlat>(true, nodes);
-      console.log('OLD SELECTION', this.checklistSelection.selected);
     }
   }
 
