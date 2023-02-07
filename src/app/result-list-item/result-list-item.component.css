@@ -87,3 +87,12 @@
 {
   display: inline
 }
+
+a, a:active {
+    color: #333;
+    text-decoration: none;
+}
+a:hover {
+    color: #333;
+    text-decoration: underline;
+}
