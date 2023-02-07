@@ -70,7 +70,7 @@ export class FiltersComponent  implements OnInit {
           }
           if (f.option) {
             f.option.values = r?.values || [];
-            f.option.name = r.name;
+            f.option.name = r?.name;
           }
       });
       }
